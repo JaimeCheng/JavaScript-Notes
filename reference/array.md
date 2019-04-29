@@ -134,7 +134,33 @@ ES5定义了5个迭代方法，每个方法接收2个参数， 要在每项上�
 * **map\(\)**：对每一项运行给定函数，返回每次函数调用的return的结果组成的数组
 * **some\(\)**：对每一项运行给定函数，如果该函数对任一项返回true，则返回true
 
-以上方法都不会修改数组中包含的值,，如果项是对象可以修改属性
+以上方法都不会修改数组中包含的值,，如果项是**对象可以修改属性**
+
+```js
+var numbers = [1,2,3,4,5,4,3,2,1];
+
+var everyResult = numbers.every((item, index, array) => {
+	return (item > 2);
+}); // false
+
+var someResult = numbers.some((item, index, array) => {
+	return (item > 2);
+}); // true
+
+var filterResult = numbers.filter((item, index, array) => {
+	return (item > 2);
+}); // [3, 4, 5, 4, 3]
+
+var mapResult = numbers.map((item, index, array) => {
+	return (item * 2);
+}); // [2, 4, 6, 8, 10, 8, 6, 4, 2]
+
+numbers.forEach((item, index, array) => {
+  // 执行某些操作，但不会修改数组
+})
+```
+
+
 
 ## 归并方法
 
