@@ -1,4 +1,4 @@
-### Chapter2 - 在HTML中使用JavaScript
+# 2. 在HTML中使用JavaScript
 
 1. `<script>`的6个属性
 2. **JavaScript代码的加载顺序，结合上述属性**
