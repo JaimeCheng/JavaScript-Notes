@@ -12,12 +12,12 @@
 
 ## 引用类型详解
 
-* [数组专题](yin-yong-lei-xing-xiang-jie/array.md)
-* [对象专题](yin-yong-lei-xing-xiang-jie/object.md)
-* [函数专题](yin-yong-lei-xing-xiang-jie/function.md)
+* [数组专题](reference/array.md)
+* [对象专题](reference/object.md)
+* [函数专题](reference/function.md)
 
 ## 附录
 
-* [严格模式](fu-lu/use-strict.md)
-* [兼容性](fu-lu/compatibility.md)
+* [严格模式](appendix/use-strict.md)
+* [兼容性](appendix/compatibility.md)
 
