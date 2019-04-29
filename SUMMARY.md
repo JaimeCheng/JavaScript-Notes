@@ -1,7 +1,5 @@
 # Table of contents
 
-* [Introduction](README.md)
-
 ## JavaScript高级程序设计
 
 * [1. JavaScript简介](chapter/chapter01.md)
