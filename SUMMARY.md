@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Introduction](README.md)
+* [前言](README.md)
 * JavaScript高级程序设计
   * [1. JavaScript简介](chapter/chapter01.md)
   * [2. 在HTML中使用JavaScript](chapter/chapter02.md)
