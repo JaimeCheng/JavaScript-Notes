@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pythagoras</title>
+</head>
+<body>
+  <script>
+    // 已知 a^2 + b^2 = c^2， a+b+c=1000， a<b<c 正整数
+    // 推理 a<333  a+b>c => c<500
+    // i j k 代表abc开根号 
+    // i>16 k>18 k<23 i<18
+    var b;
+    var cnt = 0;
+    tag:for(var a=1;a<333;a++){
+      for(var c=333;c<500; c++){
+        cnt++
+        b = 1000-c-a
+        if((a*a+b*b) == c*c){
+          document.writeln("a:"+a+",b:"+b+",c:"+c)
+          // break; // 不加break会增加多余的循环次数
+          break tag;
+        }
+      }
+    }
+    document.write(cnt)
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>99乘法表</title>
+  <style>
+    table,tr,td{
+      border: 2px solid black;
+      border-collapse: collapse;
+    }
+    table{
+      width: 800px;
+      height: 400px;
+      table-layout: fixed;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <table>
+      <script>
+        for(var i = 1; i<10; i++) {
+          document.write("<tr>")
+          for(var j = 1; j<=i; j++) {
+            document.write("<td>")
+            document.write(`${j}x${i}=${i*j}`);
+            document.write("</td>")
+          }
+          document.write("</tr>")
+        }
+      </script>
+  </table>
+  
+</body>
+</html>

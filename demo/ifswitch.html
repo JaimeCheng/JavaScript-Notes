@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function getScore (s) {
+      s = Number(s)
+      // if (s<60) {
+      //   document.write("不及格")
+      // } else if (s < 80) {
+      //   console.log(s)
+      //   document.write("及格")
+      // } else if (s < 90) {
+      //   document.write("良好")
+      // } else {
+      //   document.write("优秀")
+      // }
+      switch (true) {
+        case s < 60:
+          document.write("不及格")
+          break;
+        case s < 80:
+          document.write("及格")
+          break;
+        case s < 90:
+          document.write("良好")
+          break
+        default:
+          document.write("优秀")
+      }
+    }
+    getScore(43);
+    getScore(60);
+    getScore(86);
+    getScore(999);
+  </script>
+</body>
+</html>

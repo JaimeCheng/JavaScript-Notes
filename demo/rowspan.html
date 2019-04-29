@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    table {border-collapse: collapse;}
+    th, tr, td {text-align: center;border: 2px solid #666;padding: 5px;}
+  </style>
+</head>
+<body>
+  <div>
+    <!-- 生成表格之前就写好该表格结构id固定"specTable" -->
+    <table id="specTable">
+      <thead>
+        <tr></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <br>
+    <button id="sub">提交数据</button>
+    <button id="change">模拟修改属性</button>
+  </div>
+  <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+  <!-- 工具函数，不要修改 -->
+  <script>
+    // 工具函数 ---- 递归属性排列组合
+    function doExchange(doubleArrays){
+      var len=doubleArrays.length;
+      if(len>=2){
+        var len1=doubleArrays[0].length;
+        var len2=doubleArrays[1].length;
+        var newlen=len1*len2;
+        var temp=new Array(newlen);
+        var index=0;
+        var arr = []
+        for(var i=0;i<len1;i++){
+          for(var j=0;j<len2;j++){
+            temp[index]=doubleArrays[0][i]+'-'+doubleArrays[1][j];
+            index++;
+          }
+        }
+        var newArray=new Array(len-1);
+        for(var i=2;i<len;i++){
+          newArray[i-1]= doubleArrays[i];
+        }
+        newArray[0]=temp;
+        return doExchange(newArray);
+      }
+      else{
+        return doubleArrays[0];
+      }
+    }
+
+    // 工具函数 ---- 合并单元格 rowspan
+    $.fn.rowspan = function(colIdx) { 
+      return this.each(function(){
+        var that;
+        $('tbody tr', this).each(function(row) {
+          $('td:eq('+colIdx+')', this).filter(':visible').each(function(col) {
+            if (that!=null && $(this).html() == $(that).html()) {
+              rowspan = $(that).attr("rowSpan");
+              if (rowspan == undefined) {
+                $(that).attr("rowSpan",1);
+                rowspan = $(that).attr("rowSpan"); 
+              }
+              rowspan = Number(rowspan)+1;
+              $(that).attr("rowSpan",rowspan);
+              $(this).hide()
+            } else {
+              that = this;
+              $(that).addClass('first')
+            }
+          });
+        });
+      });
+    }
+ 
+    // 工具函数 ---- 按数组生成表格
+    $.fn.createTable = function(specArr) {
+      var td_arr = []
+      $('#specTable thead tr').empty('')
+      $('#specTable tbody').empty('')
+      if (specArr.length > 0) {
+        // 创建表头
+        specArr.forEach((el, index, arr) => {
+          var th = `<th>${el.attr}</th>`
+          $('#specTable thead tr').append(th)
+          td_arr.push(el.value)
+        })
+        $('#specTable thead tr').append(`<th>价格</th><th>库存</th>`)
+      
+      
+        // 递归获得属性排列组合
+        var res = doExchange(td_arr);
+        res.forEach(el => {
+          var td = ''
+          var tinput = '<td><input placeholder="价格" name="price" /></td><td><input placeholder="库存" name="stock" /></td>'
+          el.toString().split('-').forEach((item,index) => {
+            td += `<td class="data">${item}</td>`
+          })
+          var tr = `<tr>${td}${tinput}</tr>`
+          $('#specTable tbody').append(tr)
+        })
+
+        // 合并单元格
+        $(function() {
+          for(var i=0;i<specArr.length-1;i++){
+            $("#specTable").rowspan(i);
+          }
+        });
+      }
+
+    } 
+    
+  </script>
+
+  <!-- 以下是需要你写的 -->
+  <script>
+
+    // 自定义属性数组
+    var spec = [
+      { attr: '颜色', value: ['红色', '蓝色'] },
+      { attr: '型号', value: ['A', 'B'] }
+    ]
+
+    // 每次更新商品属性 ，重新生成一次表格
+    $('#specTable').createTable(spec)
+
+    // 模拟修改商品属性
+    $('#change').click(function(){
+      var new_spec = [
+        { attr: '颜色', value: ['红色', '蓝色'] },
+        { attr: '型号', value: ['A', 'B'] },
+        { attr: '尺寸', value: ['XL', 'XXL'] }
+      ]
+      $('#specTable').createTable(new_spec)
+    })
+
+    // 提交数据
+    $('#sub').click(function(){
+      var arr = []
+      var _isInvalid = false
+      $('#specTable tbody tr').each(function(){
+        var obj = {}
+        var list = []
+        $(this).find('.data').each(function(i,e) {
+          list.push($(e).text())
+        })
+        obj.list = list.join('-')
+        obj.price = $(this).find('input[name="price"]').val()
+        obj.stock = $(this).find('input[name="stock"]').val()
+        if (obj.price == '' || obj.stock == ''){
+          alert('请将数据填写完整')
+          _isInvalid = true;
+          return false
+        } else {
+          arr.push(obj)
+        }
+      })
+      if (_isInvalid) {
+        // 有任何一个input为空都会终止提交
+        return false;
+      }
+
+      // 验证通过提交数据
+      console.log(arr)
+    })
+  </script>
+</body>
+</html>
