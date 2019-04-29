@@ -1,4 +1,4 @@
-# 兼容性
+# 兼容性汇总
 
 1. `"use strict";` 支持 IE10+、FireFox4+、Safari5.1+、Opera12+、Chrome
 2. IE、 Firefox、 Chrome 和 Safari 的所有版本以及 Opera 9.6 都支持 caller 属性 

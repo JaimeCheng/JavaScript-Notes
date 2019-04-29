@@ -2,7 +2,7 @@
 description: 《JavaScript高级程序设计·第三版》知识归纳
 ---
 
-# 概要
+# JavaScript高级程序设计
 
 
 
