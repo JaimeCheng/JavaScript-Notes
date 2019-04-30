@@ -1,6 +1,6 @@
 # Object
 
-## 创建对象
+### 创建对象 <a id="create"></a>
 
 ```javascript
 var obj = new Object() // 创建一个包含默认属性和方法的对象
@@ -10,7 +10,7 @@ var person = {
 } // 字面量表示法，字面量不会调用Object()构造函数
 ```
 
-## 属性和方法
+### 属性和方法
 
 * **constructor**：保存着用于创建当前对象的函数（构造函数）
 * **hasOwnProperty\(propertyName\)**：用于检查给定的属性在当前对象实例中是否存在（不是在实例的原型中），propertyName以字符串形式传入
