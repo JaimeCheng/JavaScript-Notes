@@ -1,7 +1,5 @@
 # 对象·Object
 
-\[TOC\]
-
 ## 创建对象
 
 ```javascript
