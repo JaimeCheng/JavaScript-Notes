@@ -1,4 +1,4 @@
-# 函数·Function
+# Function
 
 ## 0. Function类型
 

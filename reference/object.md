@@ -1,4 +1,4 @@
-# 对象·Object
+# Object
 
 ## 创建对象
 
