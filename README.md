@@ -8,6 +8,8 @@ description: 《JavaScript高级程序设计·第三版》知识归纳
 
 {% page-ref page="content/" %}
 
+{% page-ref page="datatype/" %}
+
 {% page-ref page="reference/" %}
 
 {% page-ref page="quiz/" %}
