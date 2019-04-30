@@ -7,6 +7,13 @@
   * [3. JavaScript基本概念](content/chapter03.md)
   * [4. 变量、作用域和内存问题](content/chapter04.md)
   * [5. 引用类型](content/chapter05.md)
+* [数据类型](datatype/README.md)
+  * [Undefined](datatype/undefined.md)
+  * [Null](datatype/null.md)
+  * [Boolean](datatype/boolean.md)
+  * [Number](datatype/number.md)
+  * [String](datatype/string.md)
+  * [Object](datatype/object.md)
 * [引用类型](reference/README.md)
   * [Array](reference/array.md)
   * [Object](reference/object.md)
@@ -14,6 +21,8 @@
 * [专项练习](quiz/README.md)
   * [数组](quiz/array.md)
 * [附录](appendix/README.md)
+  * [数据类型转换](appendix/data-type-conversion.md)
   * [严格模式规则](appendix/use-strict.md)
   * [兼容性汇总](appendix/compatibility.md)
+  
 
