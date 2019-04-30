@@ -8,10 +8,10 @@
   - `type` 最大限度兼容性的值 `text/javascript`
   - `charset` 大多浏览器会忽略
   - `language` 已废弃 
-  </br>
+  <br/>
 
 2. **JavaScript代码的加载顺序，结合上述属性** 
-</br>
+<br/>
 
 3. **声明文档类型，文档模式的影响**
 
