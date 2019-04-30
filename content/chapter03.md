@@ -10,7 +10,16 @@
 
 ## 2. 数据类型  <a id="data-type"></a>
 
-* 基本+复杂+ES6，详见[数据类型](../datatype/)；
+* 基本数据类型
+  * **Undefined**
+  * **Null**
+  * **Number**
+  * **Boolean**
+  * **String**
+* 复杂数据类型
+  *  **Object**
+* ES6新增
+* 数据类型见[详解](../datatype/)
 * 数据类型相互转换见[附录](../appendix/data-type-conversion.md)；
 
 ## 3. `typeof`操作符  <a id="typeof"></a>
