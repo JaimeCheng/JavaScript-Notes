@@ -27,4 +27,3 @@
   * [严格模式规则](appendix/use-strict.md)
   * [兼容性汇总](appendix/compatibility.md)
 
-
