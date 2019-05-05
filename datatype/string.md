@@ -21,10 +21,10 @@
   * 如果值是 `null`，则返回 `"null"`；
   * 如果值是 `undefined`，则返回 `"undefined"`；
 
-```js
-var arr = [];
-arr.toString(); // ""
-arr = [2, 3];
-arr.toString(); // "2,3"
-```
+  ```js
+  var arr = [];
+  arr.toString(); // ""
+  arr = [2, 3];
+  arr.toString(); // "2,3"
+  ```
 
