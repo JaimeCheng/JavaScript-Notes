@@ -1,5 +1,10 @@
 # Undefined
 
-* undefined 和 null 的特殊性，`null == undefined // true`
-* null和undefined没有`toString()`方法，数值的`toString()`可以传一个参数，进制基数\(应用到进制间转换\)，null和undefined可以使用String\(null\)转型函数，返回字面量"null"，undefined派生自null
-
+* `Undefined` 类型只有一个值，即特殊的 `undefined`；
+* 对未初始化和未声明的变量执行 typeof 操作符都返回了 `"undefined"` 值；
+* `null` 和 `undefined` 值没有 `toString()` 方法，`null` 和 `undefined` 可以使用 `String()` 转型函数来返回字面量；
+* 实际上，`undefined` 值是派生自 `null` 值的；
+* ```js
+  null == undefined; // true
+  String(undefined); // "undefined"
+  ```
