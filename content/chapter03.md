@@ -20,7 +20,6 @@
   *  **Object**
 * ES6新增
 * 数据类型见[详解](../datatype/)
-* 数据类型相互转换见[附录](../appendix/data-type-conversion.md)；
 
 ## `typeof`操作符  <a id="typeof"></a>
 
