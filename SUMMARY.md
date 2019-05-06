@@ -13,7 +13,7 @@
   * [Boolean](datatype/boolean.md)
   * [Number](datatype/number.md)
   * [String](datatype/string.md)
-  * [Object](reference/object.md)
+  * [Object](datatype/object.md)
 * [引用类型](reference/README.md)
   * [Array](reference/array.md)
   * [Object](reference/object.md)
