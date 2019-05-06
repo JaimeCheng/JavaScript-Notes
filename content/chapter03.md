@@ -36,6 +36,7 @@
   * ```javascript
     var myObject = preferredObject || backupObject;
     ```
+  * 逻辑与和逻辑或运算的返回值不是true和false.而是和true或false等价的原值；
 * 乘性操作符：`*`，`/`，`%` ；
 * 加性操作符：`+`，`-` ；
 * 关系操作符：`>`，`<`，`>=`，`<=` ；
