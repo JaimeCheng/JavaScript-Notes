@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>百鸡百钱</title>
+</head>
+<body>
+  <pre>
+      百鸡百钱问题，一只公鸡1文钱，一只母鸡2文钱，一只小鸡半文钱，需要买100只鸡， 正好花完，可以怎么买？有多少种买法？
+      请用程序实现,用一百文钱买一百只鸡
+  </pre>
+  <script>
+    // 一只公鸡1文钱，一只母鸡2文钱，一只小鸡半文钱，需要买100只鸡， 正好花完，可以怎么买？有多少种买法？
+    // 请用程序实现,用一百文钱买一百只鸡。
+    // a+2b+0.5c=100 a+b+c=100 => b=0.5c c=>2b a+3b=100
+    var count = 0;
+    for(var a=0;a<=100;a++){
+      for(var b=0;b<50;b++){
+        var c = 100-a-b
+        count++
+        if((a + 2*b + 0.5*c) == 100) {
+          document.writeln("a:"+a+",b:"+b+",c:"+c)
+          document.write("<br>")
+        }
+      }
+    }
+    document.write("count："+count)
+  </script>
+</body>
+</html>
