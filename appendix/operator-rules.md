@@ -124,4 +124,4 @@
 |    NaN == NaN     | false |   null == 0    | false |
 |    NaN != NaN     | true  |   false == 0   | true  |
 
-
+![真值表](../imgs/boolean.png)
