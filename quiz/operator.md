@@ -43,4 +43,3 @@ description: 操作符相关练习，操作符特殊规则和运算优先级
 
 
 
-[demo](../demo/demo.html)
