@@ -1,0 +1,59 @@
+﻿<pre>
+知识点一：二分排序法
+	案例：用二分法实现从小到大排序
+
+	算法原理：
+		把一组数中的N个数分为三个部分：
+		第1部分、中间选一个
+		第2部分、小于中间的一个放左边
+		第3部分、大于中间的一个放到右边
+		重复以上步骤，直到排好为止。重复次数是不确定的根据元素多少和元素顺序都有关系
+	
+	原理举例：
+		假设有数组： [7,6,9,5,3];  
+		第一次：
+			取出中间一项9，如果是偶数项比如4个可以取第二个或第三个都行的。 
+			把小于9的放到左边数组中，大于9的放到右边数组中，变成了以下样子。
+			[6,7,5,3]  9  [];
+		
+		第二次 
+		 	因为9后面为空所以9及其后面的就都确定了。问题规模变小了变成了是对
+			[6,7,5,3] 进行排序
+			取出中间项：7 把小于7的放左边大于7的放右边
+			[6,5,3]  7  []
+		
+		第三次
+			 重复以上思路取出 [6,5,3] 中的中间项 5把小于放左边大于的放右边。
+			 [3] 5 [6]
+		 	排序完毕（对于小于等于1项的无需进行排序。）
+		
+		最后递归倒着返回结果
+			[3] 5 [6] 7 9 	
+
+</pre>
+
+<h2>二分法实战案例</h2>
+<script type="text/javascript">
+	//用二分法实现从小到大排序：
+	var arr = [7, 6, 9, 5, 3];
+
+	function quickSort(arrT) {　　
+		if(arrT.length <= 1) {
+			return arrT;
+		}　　
+		var pivotIndex = Math.floor(arrT.length / 2);　　
+		var pivot = arrT.splice(pivotIndex, 1)[0]; //单独测试splice
+		　　
+		var left = [];　　
+		var right = [];　　
+		for(var i = 0; i < arrT.length; i++) {　　　　
+			if(arrT[i] < pivot) {　　　　　　
+				left.push(arrT[i]);　　　　
+			} else {　　　　　　
+				right.push(arrT[i]);　　　　
+			}　　
+		}　　
+		return quickSort(left).concat([pivot], quickSort(right));
+	};
+	document.writeln(quickSort(arr));
+</script>
