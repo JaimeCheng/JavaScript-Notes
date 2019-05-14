@@ -31,10 +31,11 @@ console.log(arr.toLocaleString()) // a,b,c
 console.log(arr.toString())       // a,b,c
 console.log(arr.valueOf())        // ["a", "b", "c"]
 console.log(arr1.toString())     // a,,
+console.log(arr.join('->'))      // a->b->c
 ```
 
 * `join` 方法可重现 `toString` 的返回值，如果不给 `join` 传任何值，或传入 `undefined`，默认使用逗号作为分隔符；
-* 如果数组的某一项是 `undefined` 或 `null`，`toString` 和 `toLocaleString` 返回的结果中以空字符串表示；
+* 如果数组的某一项是 `undefined` 或 `null`，`toString` 、`join` 和 `toLocaleString` 返回的结果中以空字符串表示；
 
 ## 栈方法LIFO  <a id="lifo"></a>
 
