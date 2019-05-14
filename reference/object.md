@@ -4,6 +4,7 @@
 
 ```javascript
 var obj = new Object() // 创建一个包含默认属性和方法的对象
+var obj1 = {} // 字面量语法时，如果留空其花括号，则可以定义只包含默认属性和方法的对象
 obj.name = "Jaime"
 var person = {
     name: "Jaime"
