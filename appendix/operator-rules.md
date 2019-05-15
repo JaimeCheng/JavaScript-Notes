@@ -91,7 +91,7 @@
 | 如果是+0 减+0，则结果是+0 |
 | 如果是+0 减-0，则结果是-0 |
 | 如果是-0 减-0，则结果是+0 |
-| 如果有一个操作数是字符串、布尔值、null 或 undefined，则先在后台调用 Number\(\)函数将其转换为数值，然后再根据前面的规则执行减法计算。如果转换的结果是 NaN，则减法的结果就是 NaN |
+| 如果有一个操作数是字符串、布尔值、null 或 undefined，则先在后台调用 Number\(\)函数将其转换为数值，然后再根据前面的规则执行减法计算。如果转换的结果是 NaN，则减法的结果就是 NaN，例如：var foo = "11"+2-"1"; foo值 111 |
 | 如果有一个操作数是对象，则调用对象的 valueOf\(\)方法以取得表示该对象的数值。如果得到的值是 NaN，则减法的结果就是 NaN。如果对象没有 valueOf\(\)方法，则调用其 toString\(\)方法并将得到的字符串转换为数值 |
 
 ## 关系操作符  <a id="relational"></a>
@@ -125,6 +125,7 @@
 | 5 == NaN | false | undefined == 0 | false |
 | NaN == NaN | false | null == 0 | false |
 | NaN != NaN | true | false == 0 | true |
+| [] == false | true | [] == ![] | true |
 
 ![&#x771F;&#x503C;&#x8868;](../.gitbook/assets/boolean.png)
 
