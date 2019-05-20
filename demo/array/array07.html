@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>请找出以下两个数组中相同的元素和不同元素，[1,2,3,4,5] 和 [2,4,6,8,10]。</pre>
+  <script>
+    var arr1 = [1, 2, 3, 4, 5];
+    var arr2 = [2, 4, 6, 8, 10];
+    var arr = arr1.concat(arr2);
+    var diffArr = arr.filter(el => {
+      return arr.indexOf(el) === arr.lastIndexOf(el);
+    })
+
+    var samesArr = arr.filter(el => diffArr.indexOf(el) < 0); // 两数组中相同元素组成的数组(未去重)
+    var sameArr = samesArr.filter((el, index) => samesArr.indexOf(el) === index);
+
+    console.log(diffArr);
+    console.log(sameArr);
+  </script>
+</body>
+
+</html>

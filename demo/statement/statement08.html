@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>请解释continue与break关键字的作用，并结合label语句用他们写一个demo示例</pre>
+  <script>
+    var num_break = 0;
+    outermost_break:
+      for (var i = 0; i < 10; i++) {
+        for (var j = 0; j < 10; j++) {
+          if (i == 5 && j == 5) {
+            break outermost_break;
+          }
+          num_break++;
+        }
+      }
+    console.log(num_break);
+    var num_continue = 0;
+    outermost_continue: for (var i = 0; i < 10; i++) {
+      for (var j = 0; j < 10; j++) {
+        if (i == 5 && j == 5) {
+          continue outermost_continue;
+        }
+        num_continue++;
+      }
+    }
+    console.log(num_continue);
+  </script>
+</body>
+
+</html>

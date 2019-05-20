@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>["P","P","H","P","H","C","S","S","J","S"]，统计每个字母出现的次数，再对该数组去重。</pre>
+
+  <script>
+    var arr = ["P", "P", "H", "P", "H", "C", "S", "S", "J", "S"];
+    var res = [];
+    var newArr = [];
+    for (var i = 0; i < arr.length; i++) {
+      let index = newArr.indexOf(arr[i])
+      if (index < 0) {
+        let item = {};
+        item.value = arr[i];
+        item.time = 1
+        newArr.push(arr[i]);
+        res.push(item);
+      } else {
+        res[index].time++;
+      }
+    }
+
+    // forEach没有for语句效率高
+    // arr.forEach(el => {
+    //   let index = newArr.indexOf(el)
+    //   if (index < 0) {
+    //     let item = {};
+    //     item.value = el;
+    //     newArr.push(el);
+    //     item.time = 1
+    //     res.push(item);
+    //   } else {
+    //     res[index].time++;
+    //   }
+    // })
+    console.log(res);
+    console.log(newArr);
+
+    // 去重后期要加入es6新方法
+  </script>
+</body>
+
+</html>
