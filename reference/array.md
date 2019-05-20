@@ -31,7 +31,7 @@ console.log(arr.toLocaleString()) // a,b,c
 console.log(arr.toString())       // a,b,c
 console.log(arr.valueOf())        // ["a", "b", "c"]
 console.log(arr1.toString())     // a,,
-console.log(arr.join('->'))      // a->b->c
+console.log(arr.join('->'))      // a->b->cf
 ```
 
 * `join` 方法可重现 `toString` 的返回值，如果不给 `join` 传任何值，或传入 `undefined`，默认使用逗号作为分隔符；
