@@ -15,4 +15,5 @@
 ## 函数  <a id="function"></a>
 
 * IE、 Firefox、 Chrome 和 Safari 的所有版本以及 Opera 9.6 都支持 `caller` 属性 ； 
+* 支持 `bind()` 方法的有 IE9+、 Firefox 4+、 Safari 5.1+、 Opera 12+和 Chrome ；
 

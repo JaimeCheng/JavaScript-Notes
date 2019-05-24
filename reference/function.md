@@ -65,7 +65,7 @@
 ## 作为值的函数  <a id="asvalue"></a>
 
 * 函数名本身是变量，所以不仅可以把函数像参数一样传递，还可以将其作为另一函数的结果返回；
-* 应用示例
+* 应用示例：
   ```js
   var data = [{name: "Zachary", age: 28}, {name: "Nicholas", age: 29}];
   data.sort(createComparisonFunction("name"));
@@ -90,7 +90,7 @@
 
 ## 函数内部属性  <a id="internal-property"></a>
 
-* 函数内部有两个特殊对象 `arguments` 和 `this`；
+* 函数内部(函数体内)有两个特殊对象 `arguments` 和 `this`；
 * 函数体内部可通过 `arguments` 对象访问这个参数数组（非真正的Array）。非严格模式下，`arguments` 和命名参数的值保持同步，但内存空间独立，没有传递值的参数自动赋予 `undefined`。严格模式对 `arguments` 的限制。ECMAScript中的所有参数传递的都是值，不可能通过引用传递参数。`arguments.length` 可获得参数长度；
 * `arguments` 有一个叫 `callee` 的属性其是一个指针，指向拥有这个 `arguments` 对象的函数，案例阶乘函数，常用于消除紧密耦合，严格模式下运行会导致错误；
   ```js
@@ -111,5 +111,37 @@
   ```
 * ES5还定义了 `arguments.caller` 属性，在严格模式下访问会导致错误，非严格模式下始终是 `undefined` ，定义该属性是为了区分函数的 `caller` 属性；
 
-## 函数属性和方法 【未开始】  <a id="property-method"></a>
+## 函数属性和方法  <a id="property-method"></a>
+
+* **length**：表示函数希望接收命名参数的个数；
+* **prototype**：是保存他们所有示例方法的真正所在，在ES5中， `prototype`  是不可枚举的，使用 `for-in` 无法发现；
+* **apply()**：非继承而来的方法，设置函数体内 `this` 的值以扩充函数赖以运行的作用域，第一个参数是在其中运行的作用域，另一个是参数数组（Array实例 / arguments对象）；
+* **call()**：同上，区别仅在于接收参数的方式不同，第一个参数都是 `this` 值，变化的是其余参数都直接传递给函数，即必须明确的传入每一个参数；结果与 `apply` 没有不同；
+* **bind()**：ES5定义的一个方法，该方法会创建一个函数的实例，其 `this` 值会被绑定到传给 `bind()` 函数的值；
+  ```js
+  window.color = 'red';
+  var o = { color: 'blue' };
+  
+  function sum (a, b) {
+    console.log(this.color);
+    return a + b;
+  }
+  
+  function applySum (a, b) {
+    return sum.apply(this, arguments); // this->window,因为在全局作用域调用
+    // return sum.apply(o, [a, b]);
+  }
+  
+  function callSum (a, b) {
+    return sum.call(this, a, b);
+  }
+  
+  function sayColor () { alert(this.color); }
+  sayColor.call(this); // red
+  sayColor.call(window);  // red
+  sayColor.call(o);  // blue
+  
+  sayColor.bind(o)(); // blue 注意bind和以上两个区别
+  var objSayColor = sayColor.bind(o); // blue
+  ```
 
