@@ -32,7 +32,7 @@
 * `return` 关键字；
 * 实际上，未指定返回值的函数返回的是一个特殊的 `undefined` 值；
 
-## 声明函数  <a id="defined"></a>
+## 函数声明  <a id="declaration "></a>
 
 * 有声明提升；
 * 实际上，解析器在向执行环境中加载数据时，对函数声明和函数表达式并非一视同仁。解析器会率先读取函数声明（声明提升），并使其在执行任何代码之前可用（可以访问）；
@@ -44,7 +44,7 @@
   }
   ```
 
-## 表达式函数
+## 函数表达式  <a id=" expression"></a>
 
 * 没有声明提升；
 * 至于函数表达式，则必须等到解析器执行到它所在的代码行，才会真正被解释执行；
@@ -56,13 +56,13 @@
   fnAdd(2,3);
   ```
 
-## 匿名函数  <a id="anonymity"></a>
+## 匿名函数  <a id="anonymous"></a>
 
 * 基本格式： `(function(){})()`；
 * 用途：可以立即执行一段代码（执行完毕立即销毁），并可以把返回值赋给变量；
 
 
-## 作为值的函数  <a id="asvalue"></a>
+## 作为值的函数  <a id="asvalues"></a>
 
 * 函数名本身是变量，所以不仅可以把函数像参数一样传递，还可以将其作为另一函数的结果返回；
 * 应用示例：
@@ -88,7 +88,7 @@
   }
   ```
 
-## 函数内部属性  <a id="internal-property"></a>
+## 函数内部属性  <a id="internals"></a>
 
 * 函数内部(函数体内)有两个特殊对象 `arguments` 和 `this`；
 * 函数体内部可通过 `arguments` 对象访问这个参数数组（非真正的Array）。非严格模式下，`arguments` 和命名参数的值保持同步，但内存空间独立，没有传递值的参数自动赋予 `undefined`。严格模式对 `arguments` 赋值会变得无效，重写 `arguments` 值会导致语法错误。ECMAScript中的所有参数传递的都是值，不可能通过引用传递参数。`arguments.length` 可获得参数长度，[arguments详细说明](../content/chapter03.md#function)；
@@ -112,7 +112,7 @@
   ```
 * ES5还定义了 `arguments.caller` 属性，在严格模式下访问会导致错误，非严格模式下始终是 `undefined` ，定义该属性是为了区分函数的 `caller` 属性；
 
-## 函数属性和方法  <a id="property-method"></a>
+## 函数属性和方法  <a id="properties-methods"></a>
 
 * **length**：表示函数希望接收命名参数的个数；
 * **prototype**：是保存他们所有示例方法的真正所在，在ES5中， `prototype`  是不可枚举的，使用 `for-in` 无法发现；

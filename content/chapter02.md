@@ -11,7 +11,7 @@
 
 ## JS代码的加载顺序，结合上述属性   <a id="load-order"></a>
 
-## 声明文档类型，文档模式的影响   <a id="doctype"></a>
+## 声明文档类型，文档模式的影响   <a id="document-modes"></a>
 
 * **混杂模式**，是不可取的，因为其没有兼容性可言。在IE（IE6~IE9）中，混杂模式即使用IE5.5内核来解析并渲染页面；
 * **标准模式**，让 IE 的行为更接近标准行为；
@@ -28,7 +28,7 @@
 <!DOCTYPE html>
 ```
 
-## 考虑禁用JavaScript的场景   <a id="noscript"></a>
+## 考虑禁用JavaScript的场景   <a id="no-script"></a>
 
 ```markup
 <!-- 浏览器不支持脚本; 浏览器支持脚本，但脚本被禁用，会显示以下 -->

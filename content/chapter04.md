@@ -1,6 +1,7 @@
 # 4. 变量、作用域和内存问题
 
-## 基本类型值和引用类型值  <a id="value"></a>
+## 基本类型值和引用类型值  <a id="primitive&reference-
+values"></a>
 
 * 基本数据类型是按值访问的，引用类型的值是保存在内存中的对象；
 * 基本类型值在内存中占据固定大小的空间，被保存在栈内存中，引用类型的值是对象，保存在堆内存中；
@@ -21,14 +22,14 @@
   alert(person.name);    //"Nicholas"
   ```
 
-## 检测类型  <a id="test-type"></a>
+## 检测类型  <a id="determining-type"></a>
 
 * 确定一个值是哪种基本类型可以使用 `typeof` 操作符；
 * 确定一个值是哪种引用类型可以使用 `instanceof` 操作符\(返回bool\)；
 * 引用类型的值都是 `Object` 的实例。因此，`someReferenceVar instanceof Object`，始终会返回 `true`，如果检测基本类型的值，则始终会返回 `false`，因为基本类型不是对象；
 * `instanceof` 运算符用来测试一个对象在其原型链（详见第 6 章）中是否存在一个构造函数的 `prototype` 属性；
 
-## 执行环境与作用域  <a id="context-scope"></a>
+## 执行环境与作用域  <a id="execution-context-scope"></a>
 
 * JavaScript没有块级作用域；`if` 和 `for {}` 里的变量全局能访问；
 * 在 Web 浏览器中，全局执行环境被认为是 `window` 对象\(详见第 7 章\)，因此所有全局变量和函数都是作为 `window` 对象的属性和方法创建的；

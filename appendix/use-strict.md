@@ -1,6 +1,6 @@
 # 严格模式规则
 
-## 变量声明  <a id="variable"></a>
+## 变量声明  <a id="variable-declaration"></a>
 
 * 部分保留字不能作为标识符和属性名；eg.不能定义名为 `eval` 或 `arguments` 的变量，否则会导致语法错误； 
 * 给未经声明的变量赋值在严格模式下会导致抛出 `ReferenceError` 错误； 初始化未经声明的变量会导致错误；
@@ -10,7 +10,7 @@
 
 * 八进制字面量在严格模式下是无效的，会导致支持的 JavaScript 引擎抛出错误 ； 
 
-## 语句  <a id="statement"></a>
+## 语句  <a id="statements"></a>
 
 * 严格模式下不允许使用 `with` 语句，否则将视为语法错误 ； 
 
