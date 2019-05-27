@@ -91,8 +91,9 @@
 ## 函数内部属性  <a id="internal-property"></a>
 
 * 函数内部(函数体内)有两个特殊对象 `arguments` 和 `this`；
-* 函数体内部可通过 `arguments` 对象访问这个参数数组（非真正的Array）。非严格模式下，`arguments` 和命名参数的值保持同步，但内存空间独立，没有传递值的参数自动赋予 `undefined`。严格模式对 `arguments` 的限制。ECMAScript中的所有参数传递的都是值，不可能通过引用传递参数。`arguments.length` 可获得参数长度；
+* 函数体内部可通过 `arguments` 对象访问这个参数数组（非真正的Array）。非严格模式下，`arguments` 和命名参数的值保持同步，但内存空间独立，没有传递值的参数自动赋予 `undefined`。严格模式对 `arguments` 赋值会变得无效，重写 `arguments` 值会导致语法错误。ECMAScript中的所有参数传递的都是值，不可能通过引用传递参数。`arguments.length` 可获得参数长度，[arguments详细说明](../content/chapter03.md#function)；
 * `arguments` 有一个叫 `callee` 的属性其是一个指针，指向拥有这个 `arguments` 对象的函数，案例阶乘函数，常用于消除紧密耦合，严格模式下运行会导致错误；
+  
   ```js
   function factorial (num) {
     return num <= 1 ? 1 : num * arguments.callee(num - 1);
