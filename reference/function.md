@@ -58,9 +58,31 @@
 
 ## 匿名函数  <a id="anonymous"></a>
 
-* 基本格式： `(function(){})()`；
-* 用途：可以立即执行一段代码（执行完毕立即销毁），并可以把返回值赋给变量；
+* 基本格式： `function(){}` 即 `function` 关键字后没有标识符，也叫拉姆达函数；
+* ```js
+  // 不要这样做，不同浏览器修正方法不一致，这种方式很危险
+  if (condition) {
+    function sayHi() { alert('Hi') }
+  } else {
+    function sayHi() { alert('Yo') }
+  }
+  // 应使用函数表达式
+  var sayHi;
+  if (condition) {
+    sayHi = function () { alert('Hi') }
+  } else {
+    sayHi = function () { alert('Yo') }
+  }
+  ```
 
+## 立即执行函数  <a id="immediate-function"></a>
+
+* **var res = function a() {} ()** ，（函数表达式）立即执行该函数，必须使用一个变量接收返回值（或直接console等号右边），否则不会执行；
+* **(function a() {} )()**，立即执行该函数，可以不用变量接收，函数外的括号可换成 `+` `-` `!`，例如`!function a(){}()`；
+* **(function a() {} ())**，等价上条；
+* **(function () {})()，(function () {} ())**，（匿名函数）立即执行该匿名函数，可以不用变量接收，同样可使用`+` `-` `!`；
+* 用立即执行函数的好处，通过定义一个匿名函数，创建了一个新的函数作用域，相当于创建了一个“私有”的命名空间，该命名空间的变量和方法，不会破坏污染全局的命名空间；
+* 应用：**(function a(){}) **，会返回这个函数（不会执行），但是在括号外面无法调用该函数，需要一个变量接收该函数，`var fun = (function a(){})`,一般这个用在递归上见下文示例[递归函数万能实现方式](#recursion)
 
 ## 作为值的函数  <a id="asvalues"></a>
 
@@ -146,3 +168,31 @@
   var objSayColor = sayColor.bind(o); // blue
   ```
 
+
+## 递归函数  <a id="recursion"></a>
+
+* 递归函数是在一个函数通过名字调用自身的情况下构成的；
+  ```js
+  // 经典阶乘函数
+  function factorial (num) {
+   return num <= 1 ? 1 : num * factorial(num - 1);
+  }
+  
+  var another = factorial;
+  factorial = null;
+  another(4); // 出错 factorial is not a function
+  ```
+* 以上代码先把 `factorial()` 函数保存在变量 `another` 中，然后将 `factorial` 变量设置为 `null`，结果指向原始函数的引用只剩下一个。但在接下来调用`another()` 时，由于必须执行 `factorial()`，而 `factorial` 已经不再是函数，所以就会导致错误。在这种情况下，使用 `arguments.callee` 可以解决这个问题；
+  ```js
+  function factorial (num) {
+   return num <= 1 ? 1 : num * arguments.callee(num - 1);
+  }
+  ```
+
+* `arguments.callee`  是指向正在执行的函数的指针，但严格模式下不可用；
+* 严格模式或非严格模式下递归调用并降低耦合的方式如下：
+  ```js
+  var factroial = (function f (num) {
+    return num <= 1 ? 1 : num * f(num - 1);
+  }) // 外部不能调用f()
+  ```

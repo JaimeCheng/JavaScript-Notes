@@ -171,7 +171,7 @@ ES5新增了两个归并数组的方法，这两个方法都会迭代所有项�
 ```javascript
 var arr = [1,2,3,4,5]
 var res = arr.reduce((prev, curr)=>{
-return prev+curr
+  return prev+curr
 },10)
 console.log(res) // 25 如果不加初始值10则结果15
 ```
