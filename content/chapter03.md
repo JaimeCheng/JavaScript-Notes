@@ -74,6 +74,11 @@
   }
   add(2,3) // 12
   add(2) // NaN
+  
+  function fnArguments2(a,b,c){
+    console.log(arguments.length);	// 2，arguments中自动获取的是实参个数，和形参无关。
+  }
+  fnArguments2(1,2); 
   ```
 * 严格模式下，`arguments[1]`设置值，命名参数的值仍然还是 `undefined`。其次，重写 `arguments` 的值会导致语法错误\(代码将不会执行\)；
 * ECMAScript中的所有参数传递的都是值，不可能通过引用传递参数；
