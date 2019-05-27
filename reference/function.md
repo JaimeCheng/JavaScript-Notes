@@ -171,7 +171,10 @@
 
 ## 递归函数  <a id="recursion"></a>
 
-* 递归函数是在一个函数通过名字调用自身的情况下构成的；
+* 递归函数是在一个函数通过名字调用自身的情况下构成的，即函数自己调用自己；
+  
+* 递归必须有退出递归的条件否则成为死循环；
+  
   ```js
   // 经典阶乘函数
   function factorial (num) {
@@ -182,6 +185,7 @@
   factorial = null;
   another(4); // 出错 factorial is not a function
   ```
+  
 * 以上代码先把 `factorial()` 函数保存在变量 `another` 中，然后将 `factorial` 变量设置为 `null`，结果指向原始函数的引用只剩下一个。但在接下来调用`another()` 时，由于必须执行 `factorial()`，而 `factorial` 已经不再是函数，所以就会导致错误。在这种情况下，使用 `arguments.callee` 可以解决这个问题；
   ```js
   function factorial (num) {
@@ -190,6 +194,7 @@
   ```
 
 * `arguments.callee`  是指向正在执行的函数的指针，但严格模式下不可用；
+
 * 严格模式或非严格模式下递归调用并降低耦合的方式如下：
   ```js
   var factroial = (function f (num) {
