@@ -59,7 +59,7 @@ description: 函数表达式是JavaScript中既强大又容易令人困惑的特
 function createCompariFunction (propertyName) {
   return function (obj1, obj2) {
     var value1 = obj1[propertyName]; // 访问了外部函数中的变量propertyName
-    var value2 = obj2[propertyName]; // 
+    var value2 = obj2[propertyName]; // 同上
     if (value1 < value2) {
       return -1;
     } else if (value1 > value2) {
@@ -70,11 +70,165 @@ function createCompariFunction (propertyName) {
   }
 }
 
-var data = [{name: "Zachary", age: 28}, {name: "Nicholas", age: 29}];
-data.sort(createComparisonFunction("name"));
-data.sort(createComparisonFunction("age"));
+//创建函数
+var compareNames = createComparisonFunction("name");
+//调用函数
+var result = compareNames({ name: "Nicholas" }, { name: "Greg" });
+//解除对匿名函数的引用（以便释放内存）通知垃圾回收例程将其清除
+compareNames = null;
 ```
 
-在这个例子中，打注释的两行代码访问了外部函数中的变量propertyName，之所以能访问，是因为内部函数的作用域链包含 `createCompareFunction()`  的作用域；
-
 要理解闭包必须深刻理解执行环境和作用域链，详见[第4章](chapter04.md#execution-context-scope)；
+
+在这个例子中，打注释的两行代码访问了外部函数中的变量propertyName，之所以能访问，是因为内部函数的作用域链包含 `createCompariFunction()`  的作用域；
+
+在另一个函数内部定义的函数会将包含函数（即外部函数）的活动对象添加到它的作用域链中。因此，在 `createComparisonFunction()` 函数内部定义的匿名函数的作用域链中，实际上将会包含外部函数 `createComparisonFunction()` 的活动对象。下图展示了当上述列代码执行时，包含函数与内部匿名函数的作用域链。 
+
+![](../imgs/7-1.png)
+
+在匿名函数从 `createComparisonFunction()` 中被返回后，它的作用域链被初始化为包含 
+`createComparisonFunction()` 函数的活动对象和全局变量对象。这样，匿名函数就可以访问在
+`createComparisonFunction()` 中定义的所有变量。更为重要的是，`createComparisonFunction()`函数在执行完毕后，其活动对象也不会被销毁，因为匿名函数的作用域链仍然在引用这个活动对象。换句话说，当 `createComparisonFunction()` 函数返回后，其执行环境的作用域链会被销毁，但它的活动对象仍然会留在内存中；直到匿名函数被销毁后， `createComparisonFunction()` 的活动对象才会被销毁；
+
+由于闭包会携带外部函数的作用域，因此比其他函数占更多的内存。建议只在绝对必要时再考虑使用闭包；
+
+#### 闭包与变量  <a id="closures&variables"></a>
+
+* 作用域链的这种配置机制有一个值得注意的副作用，**闭包只能取得包含函数中任何变量的最后一个值**；
+
+  ```js
+  function createFunctions(){
+    var result = new Array();
+    for (var i=0; i < 3; i++){
+      result[i] = function(){
+        return i;
+      };
+    }
+    return result;
+  }
+  var res = createFunctions()
+  document.write(res[0]());		// 3
+  document.write(res[1]());		// 3
+  document.write(res[2]());		// 3
+  document.write(res[3]());		// res[3] is not a function
+  ```
+
+  表面上看，似乎每个函数都应该返自己的索引值，当 `createFunctions()` 函数返回后，变量 i 的值是 3，此时每个函数都引用着保存变量 i 的同一个变量对象，所以在每个函数内部 i 的值都是 3。但是，我们可以通过创建另一个匿名函数强制让闭包的行为符合预期，如下所示：
+  ```js
+function createFunctions(){
+    var result = new Array();
+      for (var i=0; i < 10; i++){
+        result[i] = function(num){
+          return function(){
+          return num;
+        };
+      }(i);
+    }
+    return result;
+  }
+  ```
+  在这个版本中，没有直接把闭包赋值给数组，而是定义了一个匿名函数，并将立即执行该匿名函数的结果赋
+给数组。 这里的匿名函数有一个参数 `num`，也就是最终的函数要返回的值。在调用每个匿名函数时，传入了变量` i`。由于函数参数是按值传递的，所以就会将变量 `i` 的当前值复制给参数 `num`。而在这个匿名函数内部，又创建并返回了一个访问 `num` 的闭包。这样一来，` result` 数组中的每个函数都有自己 `num` 变量的一个副本，因此就可以返回各自不同的数值了；
+
+* 经典闭包案例，要深刻理解掌握：
+
+  ```js
+  for (var i = 0; i < 5; ++i) {
+    setTimeout(function() { 
+      console.log('var定义i: '+i) 
+    }, 0)
+  }
+  for (let i = 0; i < 5; ++i) {
+    setTimeout(function() { 
+      console.log('var定义i: '+i) 
+    }, 0)
+  }
+  ```
+
+#### 关于 this 对象  <a id="this-object"></a>
+
+* 在全局函数中， `this` 等于 `window`，而当函数被作为某个对象的方法调用时， `this` 等于那个对象。不过，匿名函数的执行环境具有全局性，因此其 `this` 对象通常指向 `window`，当然，在通过 `call()` 或 `apply()` 改变函数执行环境的情况下，`this` 就会指向其他对象 。 在闭包中使用 `this` 对象可能会导致一些问题；
+
+  ```js
+  var name = "The Window";
+  var object = {
+    name : "My Object",
+    getNameFunc : function(){
+      return function(){
+        return this.name;
+      };
+    }
+  };
+  alert(object.getNameFunc()()); //"The Window"（在非严格模式下）
+  ```
+
+  为什么匿名函数没有取得其包含作用域（或外部作用域）的 `this` 对象呢？
+  前面曾经提到过，每个函数在被调用时都会自动取得两个特殊变量： `this` 和 `rguments`。内部函数在搜索这两个变量时，只会搜索到其活动对象为止，因此永远不可能直接访问外部函数中的这两个变量，不过，把外部作用域中的 this 对象保存在一个闭包能够访问到的变量里，就可以让闭包访问该对象了，如下所示 ：
+
+  ```js
+  var name = "The Window";
+  var object = {
+    name : "My Object",
+    getNameFunc : function(){
+      var that = this
+      return function(){
+        return that.name;
+      };
+    }
+  };
+  alert(object.getNameFunc()()); //"My Object"
+  ```
+
+  把 `this` 对象赋值给了一个名叫 `that` 的变量。而在定义了闭包之后，闭包也可以访问这个变量，因为它是在包含函数中特意声明的一个变量。即使在函数返回之后， `that` 也仍然引用着 `object`，所以调用就返回了"My Object"；
+
+* `arguments `也存在同样的问题。如果想访问作用域中的 arguments 对象，必须将对该对象的引用保存到另一个闭包能够访问的变量中 ;
+
+* 在几种特殊情况下， `this` 的值可能会意外地改变。比如，下面的代码是修改前面例子的结果 ：
+
+  ```js
+  var name = "The Window";
+  var object = {
+    name : "My Object",
+    getName: function(){
+    	return this.name;
+    }
+  };
+  
+  object.getName(); //"My Object"
+  (object.getName)(); //"My Object"
+  (object.getName = object.getName)(); //"The Window"，在非严格模式下
+  ```
+
+  第二行代码在调用这个方法前先给它加上了括号。虽然加上括号之后，就好像只是在引用一个函数，但 `this` 的值得到了维持，因为 `object.getName` 和 `(object.getName)` 的定义是相同的 ；
+
+  第三行代码先执行了一条赋值语句，然后再调用赋值后的结果。因为这个赋值表达式的值是函数本身，所以 `this` 的值不能得到维持，结果就返回了"The Window"；
+
+#### 内存泄漏  <a id="memory-leaks"></a>
+
+由于 IE9 之前的版本对 JScript 对象和 COM 对象使用不同的垃圾收集例程，因此闭包在 IE 的这些版本中会导致一些特殊的问题。具体来说，如果闭包的作用域链中保存着一个HTML 元素，那么就意味着该元素将无法被销毁。来看下面的例子 ：
+
+```js
+function assignHandler(){
+  var element = document.getElementById("someElement");
+  element.onclick = function(){
+  	alert(element.id);
+  };
+}
+```
+
+以上代码创建了一个作为 `element` 元素事件处理程序的闭包，而这个闭包则又创建了一个循环引用（[第4章 - 垃圾收集](chapter04.md#garbage-collection)已经学习过）；由于匿名函数保存了一个对 `assignHandler()` 的活动对象的引用，因此就会导致无法减少 `element` 的引用数。只要匿名函数存在， `element` 的引用数至少也是 1，因此它所占用的内存就永远不会被回收 。不过，这个问题可以通过稍微改写一下代码来消除循环引用，如下所示 ：
+
+```js
+function assignHandler(){
+  var element = document.getElementById("someElement");
+  var id = element.id;
+  element.onclick = function(){
+  	alert(id);
+  };
+  element = null;
+}
+```
+
+通过把 `element.id` 的一个副本保存在一个变量中，并且在闭包中引用该变量消除了循环引用。但还是不能解决内存泄漏的问题。必须要记住：**闭包会引用包含函数的整个活动对象**，而其中包含着 `element`。即使闭包不直接引用 `element`，包含函数的活动对象中也仍然会保存一个引用。因此，把 `element` 变量设置为 **`null`**。这样就能够解除对 DOM 对象的引用，顺利地减少其引用数，确保正常回收其占用的内存 ；
+
+## 模仿块级作用域 <a id="mimicking-block-scope"></a>
