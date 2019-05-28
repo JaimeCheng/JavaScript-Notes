@@ -56,7 +56,7 @@ description: 函数表达式是JavaScript中既强大又容易令人困惑的特
 **闭包** 是指 可以访问读取其他函数（包含函数）作用域中的变量的函数，创建闭包的常见方式：在一个函数内部创建另一个函数；
 
 ```js
-function createCompareFunction (propertyName) {
+function createCompariFunction (propertyName) {
   return function (obj1, obj2) {
     var value1 = obj1[propertyName]; // 访问了外部函数中的变量propertyName
     var value2 = obj2[propertyName]; // 
@@ -75,6 +75,6 @@ data.sort(createComparisonFunction("name"));
 data.sort(createComparisonFunction("age"));
 ```
 
-在这个例子中，打注释的两行代码访问了外部函数中的变量propertyName，之所以能访问，是因为内部函数的作用域链包含 `createCompareFunction()`  的作用域；<br />
+在这个例子中，打注释的两行代码访问了外部函数中的变量propertyName，之所以能访问，是因为内部函数的作用域链包含 `createCompareFunction()`  的作用域；
 
 要理解闭包必须深刻理解执行环境和作用域链，详见[第4章](chapter04.md#execution-context-scope)；
