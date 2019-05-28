@@ -170,7 +170,7 @@
   ```
 
 
-## 递归函数  <a id="recursion"></a>
+## 递归  <a id="recursion"></a>
 
 * 递归函数是在一个函数通过名字调用自身的情况下构成的，即函数自己调用自己；
   
@@ -195,6 +195,7 @@
   function factorial (num) {
    return num <= 1 ? 1 : num * arguments.callee(num - 1);
   }
+  ```
 ```
   
 * `arguments.callee`  是指向正在执行的函数的指针，但严格模式下不可用；
@@ -204,7 +205,7 @@
   var factroial = (function f (num) {
     return num <= 1 ? 1 : num * f(num - 1);
   }) // 外部不能调用f()
-  ```
+```
 
 ## 闭包 <a id="closures"></a>
 
