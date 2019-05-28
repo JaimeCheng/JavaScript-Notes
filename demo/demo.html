@@ -8,12 +8,18 @@
 </head>
 <body>
   <script>
-    // 'use strict'
-    function add (num1, num2) {
-      arguments[1] = 10;
-      return num1 + num2;
-    }
-    console.log(add(2))
+  var name = "The Window";
+	var object = {
+		name : "My Object",
+		getNameFunc : function(){
+			var that = this
+			return function(){
+				console.log(this)
+				return that.name;
+			};
+		}
+	};
+	alert(object.getNameFunc()()); //"The Window"（在非严格模式下）
   </script>
 </body>
 </html>
