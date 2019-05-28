@@ -81,12 +81,15 @@
   var myObject = new Object();
   myObject.element = element;
   element.someObject = myObject;
-  // 在一个 DOM 元素（element）与一个原生 JavaScript 对象（myObject）之间创建了循环引用。由于存在这个循环引用，即使将例子中的 DOM 从页面中移除，它也永远不会被回收
+  // 在一个 DOM 元素（element）与一个原生 JavaScript 对象（myObject）之间创建了循环引用。
+  // 由于存在这个循环引用，即使将例子中的 DOM 从页面中移除，它也永远不会被回收
   
   myObject.element = null;
   element.someObject = null;
-  // 将变量设置为 null 意味着切断变量与它此前引用的值之间的连接。当垃圾收集器下次运行时，就会删除这些值并回收它们占用的内存
-  // 为了解决上述问题， IE9 把 BOM 和 DOM 对象都转换成了真正的 JavaScript 对象。这样，就避免了两种垃圾收集算法并存导致的问题，也消除了常见的内存泄漏现象
+  // 将变量设置为 null 意味着切断变量与它此前引用的值之间的连接。
+  // 当垃圾收集器下次运行时，就会删除这些值并回收它们占用的内存
+  // 为了解决上述问题， IE9 把 BOM 和 DOM 对象都转换成了真正的 JavaScript 对象。
+  // 这样，就避免了两种垃圾收集算法并存导致的问题，也消除了常见的内存泄漏现象
   ```
 
 * 当代码中存在循环引用现象时，“引用计数”算法就会导致问题；

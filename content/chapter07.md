@@ -232,3 +232,14 @@ function assignHandler(){
 通过把 `element.id` 的一个副本保存在一个变量中，并且在闭包中引用该变量消除了循环引用。但还是不能解决内存泄漏的问题。必须要记住：**闭包会引用包含函数的整个活动对象**，而其中包含着 `element`。即使闭包不直接引用 `element`，包含函数的活动对象中也仍然会保存一个引用。因此，把 `element` 变量设置为 **`null`**。这样就能够解除对 DOM 对象的引用，顺利地减少其引用数，确保正常回收其占用的内存 ；
 
 ## 模仿块级作用域 <a id="mimicking-block-scope"></a>
+
+
+## 私有变量 <a id="private-variables"></a>
+
+#### 静态私有变量 <a id="static-private-variables"></a>
+
+#### 静态私有变量 <a id="static-private-variables"></a>
+
+#### 模块模式 <a id="module-pattern"></a>
+
+#### 增强的模块模式 <a id="module-augmentation-pattern"></a>

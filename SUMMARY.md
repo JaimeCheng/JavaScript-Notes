@@ -25,6 +25,7 @@
   * [操作符](quiz/operator.md)
   * [语句](quiz/statement.md)
   * [数组](quiz/array.md)
+  * [函数](quiz/function.md)
 * [附录](appendix/README.md)
   * [操作符特殊规则](appendix/operator-rules.md)
   * [严格模式规则](appendix/use-strict.md)
