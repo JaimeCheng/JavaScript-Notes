@@ -50,7 +50,7 @@
 
 ## 闭包 <a id="closures"></a>
 
-**闭包** 是指 可以访问读取其他函数（包含函数）作用域中的变量的函数，创建闭包的常见方式：在一个函数内部创建另一个函数；
+**闭包** 是指 可以访问读取其他函数（包含函数）作用域中的变量的函数，创建闭包的常见方式：在一个函数内部创建（声明）另一个函数；
 
 ```js
 function createCompariFunction (propertyName) {
@@ -73,6 +73,17 @@ var compareNames = createComparisonFunction("name");
 var result = compareNames({ name: "Nicholas" }, { name: "Greg" });
 //解除对匿名函数的引用（以便释放内存）通知垃圾回收例程将其清除
 compareNames = null;
+
+// 对比
+var i = 1;
+function B () {
+  console.log(i);
+}
+function A () {
+  var i = 3;
+  B();
+}
+A();  // 输出3，闭包是一个函数在另一个函数内声明而不是调用，这里是一个回调函数
 ```
 
 要理解闭包必须深刻理解执行环境和作用域链，详见[第4章](chapter04.md#execution-context-scope)；
@@ -102,7 +113,7 @@ compareNames = null;
       };
     }
     return result;
-  }
+  } // for立即执行的，而闭包函数尚未调用，调用的时候i已经=3了
   var res = createFunctions()
   document.write(res[0]());		// 3
   document.write(res[1]());		// 3
@@ -117,7 +128,7 @@ function createFunctions(){
       for (var i=0; i < 10; i++){
         result[i] = function(num){
           return function(){
-          return num;
+            return num;
         };
       }(i);
     }

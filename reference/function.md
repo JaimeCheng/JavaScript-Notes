@@ -34,13 +34,18 @@
 
 ## 函数声明  <a id="declaration "></a>
 
-* 有声明提升；
+* 有声明提升，即使遇见 `return` 也不例外；
 * 实际上，解析器在向执行环境中加载数据时，对函数声明和函数表达式并非一视同仁。解析器会率先读取函数声明（声明提升），并使其在执行任何代码之前可用（可以访问）；
 
   ```javascript
   fnAdd(2,3);
   function fnAdd (a,b){
+    F();
     document.write(a+b);
+    return;
+    function F () {
+      document.write(2);
+    }
   }
   ```
 
