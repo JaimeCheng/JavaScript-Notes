@@ -112,10 +112,10 @@
 
 * 解除一个值的引用并不意味着自动回收该值所占用的内存。解除引用的真正作用是让值脱离执行环境，以便垃圾收集器下次运行时将其回收；
 
-## 变量提升  <a id="hoisting"></a>
+## 声明提升  <a id="hoisting"></a>
 
-* 函数及变量的声明都将被提升到函数的最顶部；
-* 变量可以先使用再声明，会发生变量提升，（声明变量提升，初始化变量不会提升）；
+* 函数及变量的声明（**`var`** 声明 和 **`function`** 声明的标识符）都将被提升到函数的最顶部；
+* 变量可以先使用再声明，会发生声明提升，赋值不会提升；
 * 函数可以先调用再声明，会发生函数提升（声明函数提升，表达式函数不提升）；
 
   ```javascript
@@ -125,15 +125,25 @@
   var x;
   console.log(y) // 5
   
-  // 初始化变量不提升
   var b = a;
   var a = 5;
   console.log(b) // undefined
+  // var a;
+  // var b = a;
+  // a = 5;
   
   var i = 1;
   function F(){
-    console.log(i);		//undefined
-    var i = 2;
+    console.log(i);		//undefined 
+    var i = 2;  // 可以看作 var i; 发生声明提升，等价于下例
+  }
+  F();
+  // 等价上例
+  var i = 1;
+  function F(){
+    var i;
+    console.log(i);		//undefined 
+    i = 2;
   }
   F();
   
