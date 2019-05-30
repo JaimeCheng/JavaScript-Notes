@@ -8,18 +8,15 @@
 </head>
 <body>
   <script>
-  var name = "The Window";
-	var object = {
-		name : "My Object",
-		getNameFunc : function(){
-			var that = this
-			return function(){
-				console.log(this)
-				return that.name;
-			};
-		}
-	};
-	alert(object.getNameFunc()()); //"The Window"（在非严格模式下）
+  function F() {
+		console.log('sss')
+	}
+	var timer = setTimeout(F,0);
+	    timer = setTimeout(F,0);
+	var timer2  = setTimeout(F,0);
+	// console.log(timer);
+	clearTimeout(timer)
+	console.log(timer2);
   </script>
 </body>
 </html>
