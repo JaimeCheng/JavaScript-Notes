@@ -8,15 +8,12 @@
 </head>
 <body>
   <script>
-  function F() {
-		console.log('sss')
-	}
-	var timer = setTimeout(F,0);
-	    timer = setTimeout(F,0);
-	var timer2  = setTimeout(F,0);
-	// console.log(timer);
-	clearTimeout(timer)
-	console.log(timer2);
+  (function(i){
+	document.write(i++)
+	return arguments.callee
+})(1)(2)(3)
+
+
   </script>
 </body>
 </html>
