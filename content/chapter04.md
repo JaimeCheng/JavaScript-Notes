@@ -115,7 +115,11 @@
 ## 声明提升  <a id="hoisting"></a>
 
 * 函数及变量的声明（**`var`** 声明 和 **`function`** 声明的标识符）都将被提升到函数的最顶部；
+
+* 当二者同时存在，函数提升到最顶部；
+
 * 变量可以先使用再声明，会发生声明提升，赋值不会提升；
+
 * 函数可以先调用再声明，会发生函数提升（声明函数提升，表达式函数不提升）；
 
   ```javascript
@@ -152,5 +156,12 @@
   console.log(f2); // undefined  
   function f1() {}
   var f2 = function() {}
+  
+  // 同时提升
+  var a = 5;
+  function a(b){
+    alert(b);
+  }
+  a(6); // a is not a function
   ```
 

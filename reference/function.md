@@ -47,6 +47,13 @@
       document.write(2);
     }
   }
+  //
+  function F(){
+    A = 5;
+    function A(){ }
+    console.log(A);	//5
+  }
+  F();
   ```
 
 ## 函数表达式  <a id="expression"></a>
@@ -201,7 +208,6 @@
    return num <= 1 ? 1 : num * arguments.callee(num - 1);
   }
   ```
-```
   
 * `arguments.callee`  是指向正在执行的函数的指针，但严格模式下不可用；
 
@@ -210,7 +216,7 @@
   var factroial = (function f (num) {
     return num <= 1 ? 1 : num * f(num - 1);
   }) // 外部不能调用f()
-```
+  ```
 
 ## 闭包 <a id="closures"></a>
 
