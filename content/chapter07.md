@@ -278,13 +278,112 @@ function assignHandler(){
 
   上述代码放在全局作用域中使用，其中给的 `now` 是匿名函数中的局部变量，不必在全局创建；这种做法可以减少闭包占用的内存问题，因为没有指向匿名函数的引用，只要函数执行完毕，就立即销毁其作用域了； 
 
-
 ## 私有变量 <a id="private-variables"></a>
 
-#### 静态私有变量 <a id="static-private-variables"></a>
+- 任何在函数内部定义的变量，都可以认为是私有变量；利用闭包能通过自己的作用域链可以访问这些变量的特点，就可以创建用于访问私有变量的公有方法。故把有权访问私有变量和私有函数的公有方法成为**特权方法**；
+
+  ```js
+  function Person(name){
+    this.getName = function(){
+      return name;
+    }; // 特权方法
+    this.setName = function (value) {
+      name = value;
+    }; // 特权方法
+  }
+  var person1 = new Person("Nicholas");
+  var person2 = new Person("Jaime");
+  alert(person1.getName()); //"Nicholas"  // 特权方法可以在构造函数外部使用，  有权访问私有变量name
+  alert(person2.getName()); //"Jaime"  // 每个实例都会创建一次该方法
+  person1.setName("Greg");                       
+  alert(person1.getName()); //"Greg"
+  ```
+
+- 能够在构造函数中定义特权方法，是因为特权方法作为必报有权访问在构造函数中定义的所有变量和函数；但在`Person` 构造函数外部，没有任何办法访问私有变量 `name` ；
+
+- 这种在构造函数中定义特权方法的缺点：必须使用构造函数达到目的，而构造函数的缺点是针对每个实例都会创建同样的一组新方法；使用 **静态私有变量** 实现特权方法可以避免这一问题；
 
 #### 静态私有变量 <a id="static-private-variables"></a>
+
+- 通过在私有作用域中定义私有变量或函数，也能创建特权方法；
+
+  ```js
+  (function () {
+    var name = ''
+    Person = function (val) {
+      name = val
+    } // 没有用函数声明，函数声明只能创建局部函数
+    Person.prototype.getName = function () {
+      return name
+    }
+  })()
+  var p1 = new Person('jaime')
+  var p2 = new Person('cheng')
+  console.log(p1.getName()) // cheng
+  console.log(p2.getName()) // cheng
+  ```
+  
+- 在私有作用域中，定义了私有变量和私有函数，然后又定义了构造函数及其公有方法，公有方法是在其原型上定义的，这点体现了典型的原型模式；
+
+- 这种模式与在构造函数中定义特权方法区别，在于私有变量和函数是由实例共享，因为特权方法是在原型上定义，因此所有实例都是用同一个函数；上例中，变量 `name` 就变成了一个静态的、由所有实例共享的属性；
+
+- 这种方式创建静态私有变量会因为使用原型而增加代码复用，但每个实例没有自己的私有变量，具体怎么使用两种方式视你的需求而定；该模式主要用于为自定义类型创建私有变量和特权方法；
+
+- 多查找作用域链中的一个层次，就会在一定程度上影响查找速度，而这正是使用闭包和私有变量的明显不足；
 
 #### 模块模式 <a id="module-pattern"></a>
 
+前面的模式是用于为自定义类型创建的私有变量和特权方法，而模块模式是为单例创建私有变量和特权方法；所谓单例，指的就是只有一个实例的对象；照惯例，js是以对象字面量来创建单例对象的；
+
+```js
+var application = function(){
+  //私有变量和函数
+  var components = new Array();
+  //初始化
+  components.push(new BaseComponent()); // 这里不需要关心BaseComponent的代码
+  //公共
+  return {
+    getComponentCount : function(){
+      return components.length;
+    },
+    registerComponent : function(component){
+      if (typeof component == "object"){
+        components.push(component);
+      }
+    }
+  };
+}();
+```
+
+- **模块模式**使用了一个返回对象字面量的匿名函数；从本质讲，这个对象字面量定义的是单例的公共接口；这种模式在需要对单例进行某些初始化，同时又需要维护其私有变量时是非常有用的；
+- 简言之，如果必须创建一个对象并以某些数据对其进行初始化，同时还要公开一些能够访问这些私有数据的方法，那么就可以使用**模块模式**；以这种模式创建的每个单例都是 `Object` 的实例，因为最终都要以一个对象字面量来表示它；
+
 #### 增强的模块模式 <a id="module-augmentation-pattern"></a>
+
+在返回对象之前加入对其增强的代码，这种增强的模块模式适合那些单例必须是某种类型的实例，同时还必须添加某些属性或方法对其加以增强的情况；
+
+如果上述模块模式的例子中 `application` 对象必须是 `BaseComponent` 的实例，那么就可以如下改造：
+
+```js
+var application = function(){
+  //私有变量和函数
+  var components = new Array();
+  //初始化
+  components.push(new BaseComponent());
+  //创建 application 的一个局部副本
+  var app = new BaseComponent();
+  //公共接口
+  app.getComponentCount = function(){
+    return components.length;
+  };
+  app.registerComponent = function(component){
+    if (typeof component == "object"){
+      components.push(component);
+    }
+  };
+  //返回这个副本
+  return app;
+}();
+```
+
+重写之后的不同之处在于命名变量 `app` 的创建过程，因为他必须是 `BaseComponent` 的实例；这个实例实际上是 `application` 对象的局部变量；

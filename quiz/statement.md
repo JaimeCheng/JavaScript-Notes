@@ -14,7 +14,7 @@ description: 流程控制语句相关练习
 
 5. 百鸡百钱问题，一只公鸡1文钱，一只母鸡2文钱，一只小鸡半文钱，需要买100只鸡， 正好花完，可以怎么买？有多少种买法？请用程序实现,用一百文钱买一百只鸡。<br/>
 
-6. for-in语句示例。<br/>
+6. for-in语句示例。
 
    ```js
    var obj = {name:'czm', age: 18 };
@@ -23,7 +23,7 @@ description: 流程控制语句相关练习
    }
    ```
 
-7. with语句示例。<br/>
+7. with语句示例。
 
    ```js
    var qs = location.search.substring(1);
@@ -38,7 +38,7 @@ description: 流程控制语句相关练习
    }
    ```
 
-8. 请解释continue与break关键字的作用，并结合label语句用他们写一个demo示例。<br/>
+8. 请解释continue与break关键字的作用，并结合label语句用他们写一个demo示例。
 
    ```js
    var num_break = 0;
