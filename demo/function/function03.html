@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>请使用一条语句对数组求和。</pre>
+  <pre>
+    var arr = [1,2,3,4,5];
+    function sum(args){
+      //请在这里填上一条语句，完成对数组求和，要求使用递归。
+    }
+    sum(arr);
+  </pre>
+  <script>
+    var arr = [1, 2, 3, 4, 5];
+
+    function sum(args) {
+      //请在这里填上一条语句，完成对数组求和，要求使用递归。
+      // 方法1
+      // return arr.reduce((prev, curr) => {
+      //   return prev + curr
+      // })
+
+      // 方法2
+      // return eval(args.join('+'));
+
+      // 方法3 运算符优先级 先?: 再 +=
+      return args[args.length - 1] += --args.length > 0 ? sum(args) : 0;
+
+    }
+    var sum = sum(arr);
+    console.log(sum);
+  </script>
+</body>
+
+</html>
