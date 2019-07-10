@@ -46,7 +46,10 @@
             },
             {
               parent: 'file2',
-              children: []
+              children: [{
+                parent: 'file6',
+                children: []
+              }]
             }
           ]
         },
@@ -59,35 +62,50 @@
         }
       ]
     }
-    var s = ''
+    // var s = ''
     var sum = ''
-    function toTree(obj) {
-      if (s == '') {
-        sum += s + obj.parent + '<br/>'
+    function toTree(obj, index) {
+      var s = ''
+      if (index === 0) {
+        sum = obj.parent + '<br/>'
       }
-      s = '├─'
       obj.children.forEach(el => {
-        sum += s + el.parent + '<br/>'
-        el.children.forEach(item => {
-          sum += '｜&nbsp;&nbsp;&nbsp;' + s + item.parent + '<br/>'
-          item.children.forEach(it => {
-            sum += '｜&nbsp;&nbsp;&nbsp;' + '｜&nbsp;&nbsp;&nbsp;' + s + it.parent + '<br/>'
-          })
-        })
+        if (index >= 1) {
+          s = ''
+          for(var i = 0; i < index; i++) {
+            s += '｜&nbsp;&nbsp;&nbsp;'
+          }
+        }
+        sum += s + '├─' + el.parent + '<br/>'
+        toTree(el, index+1)
       });
+      
     }
-    // toTree(data)
-    // document.write(sum)
+    toTree(data, 0)
+    document.write(sum)
 
-    const digui = ({parent, children}) => {
-      return `
-      <ul>
-        ├─ ${parent}
-        ${children.reduce((str, item) => str + digui(item), '')}
-      </ul>
-      `
-    }
-    document.write(digui(data))
+    // const digui = ({parent, children}) => {
+    //   return `
+    //   <ul>
+    //     ├─ ${parent}
+    //     ${children.reduce((str, item) => str + digui(item), '')}
+    //   </ul>
+    //   `
+    // }
+    // document.write(digui(data))
+
+    // const digui = ({parent, children}, index = 0) => {
+    //   const arr = index - 1 > 0 ? Array(index - 1).fill() : []
+    //   const line = arr.reduce((str, item) => str + '｜&nbsp;&nbsp;&nbsp;', '')
+    //   console.log(index)
+    //   return `
+    //   <div>
+    //     ${line}${index === 0 ? '' : '├─'}${parent}
+    //     ${children.reduce((str, item) => str + digui(item, index + 1), '')}
+    //   </div>
+    //   `
+    // }
+    // document.write(digui(data))
   </script>
 </body>
 
