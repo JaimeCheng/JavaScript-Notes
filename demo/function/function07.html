@@ -11,14 +11,83 @@
 <body>
   <pre>使用递归输出以下结构。</pre>
   <pre>
-    A
-    -A1
-    --A11
-    ---A111
-    ----A1111
+  Desktop
+  ├─.DS_Store
+  ├─.localized
+  ├─dir1
+  ｜ ├─file1
+  ｜ └file2
+  ｜ ｜ ├─file3
+  ├─dir2
+  ｜ ├─file4
+  ｜ └file5
   </pre>
   <script>
-    
+    var data = {
+      parent: 'project',
+      children: [
+        {
+          parent: '.DS_Store',
+          children: []
+        },
+        {
+          parent: '.localized',
+          children: []
+        },
+        {
+          parent: 'dir1',
+          children: [
+            {
+              parent: 'file1',
+              children: [{
+                parent: 'file5',
+                children: []
+              }]
+            },
+            {
+              parent: 'file2',
+              children: []
+            }
+          ]
+        },
+        {
+          parent: 'dir2',
+          children: [{
+            parent: 'file3',
+            children: []
+          }]
+        }
+      ]
+    }
+    var s = ''
+    var sum = ''
+    function toTree(obj) {
+      if (s == '') {
+        sum += s + obj.parent + '<br/>'
+      }
+      s = '├─'
+      obj.children.forEach(el => {
+        sum += s + el.parent + '<br/>'
+        el.children.forEach(item => {
+          sum += '｜&nbsp;&nbsp;&nbsp;' + s + item.parent + '<br/>'
+          item.children.forEach(it => {
+            sum += '｜&nbsp;&nbsp;&nbsp;' + '｜&nbsp;&nbsp;&nbsp;' + s + it.parent + '<br/>'
+          })
+        })
+      });
+    }
+    // toTree(data)
+    // document.write(sum)
+
+    const digui = ({parent, children}) => {
+      return `
+      <ul>
+        ├─ ${parent}
+        ${children.reduce((str, item) => str + digui(item), '')}
+      </ul>
+      `
+    }
+    document.write(digui(data))
   </script>
 </body>
 
