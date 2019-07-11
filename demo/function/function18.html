@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>猴子吃桃。第一天悟空吃掉桃子总数一半多一个，第二天又将剩下的桃子吃掉一半多一个，以后每天吃掉前一天剩下的一半多一个，到第n天准备吃的时候只剩下一个桃子。请算一下，桃子一共有多少个？。</pre>
+  <script>
+    // 假设第10天
+    var total = 0
+    var last = 1
+    for (var i=2;i>1;i--) {
+      last = (last + 1) * 2
+      total+=last
+    }
+    console.log(total)
+
+    function peach (day, index=1) {
+      if (index === day) {
+        return 1
+      } else {
+        return 2*(peach(day, index+1)+1)
+      }
+    }
+    document.write('递归:'+peach(2)+'<br/>')
+
+    function tailpeach(day, index = 1, res = 1) {
+      if (index === day) {
+        return res
+      } else {
+        return tailpeach(day, index+1, 2*(res+1))
+      }
+    }
+    document.write('尾递归:' +tailpeach(2) + '<br/>')
+    
+    // 尾递归
+    // function tailRecursivePeach(day, result) {
+    //   if (day == 1) {
+    //     return result;
+    //   }
+    //   return tailRecursivePeach(day - 1, 2 * (result + 1));
+    // }
+    // document.write(tailRecursivePeach(10, 1))
+  </script>
+</body>
+
+</html>

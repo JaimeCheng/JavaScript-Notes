@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>使用递归输出以下结构。</pre>
+  <pre>
+  Desktop
+  ├─.DS_Store
+  ├─.localized
+  ├─dir1
+  ｜ ├─file1
+  ｜ └file2
+  ｜ ｜ ├─file3
+  ├─dir2
+  ｜ ├─file4
+  ｜ └file5
+  </pre>
+  <script>
+    var data = {
+      parent: 'project',
+      children: [
+        {
+          parent: '.DS_Store',
+          children: []
+        },
+        {
+          parent: '.localized',
+          children: []
+        },
+        {
+          parent: 'dir1',
+          children: [
+            {
+              parent: 'file1',
+              children: [{
+                parent: 'file5',
+                children: []
+              }]
+            },
+            {
+              parent: 'file2',
+              children: [{
+                parent: 'file6',
+                children: []
+              }]
+            }
+          ]
+        },
+        {
+          parent: 'dir2',
+          children: [{
+            parent: 'file3',
+            children: []
+          }]
+        }
+      ]
+    }
+    var data1 = {
+        parent: 'project',
+        children: [
+          {
+            parent: 'dir1',
+            children: [{
+              parent: 'file1',
+              children: [{
+                parent: 'file5',
+                children: []
+              }]
+            }]
+          },
+          {
+            parent: 'dir2',
+            children: [{
+              parent: 'file2',
+              children: []
+            }]
+          }
+        ]
+      }
+    
+    
+    // 群友
+    // const digui = ({parent, children}) => {
+    //   return `
+    //   <ul>
+    //     ├─ ${parent}
+    //     ${children.reduce((str, item) => str + digui(item), '')}
+    //   </ul>
+    //   `
+    // }
+    // document.write(digui(data))
+    
+    // 群友
+    const digui = ({parent, children}, index = 0) => {
+      const arr = index - 1 > 0 ? Array(index - 1).fill() : []
+      const line = arr.reduce((str, item) => str + '｜&nbsp;&nbsp;&nbsp;', '')
+      return `
+      <div>
+        ${line}${index === 0 ? '' : '├─'}${parent}
+        ${children.reduce((str, item) => str + digui(item, index + 1), '')}
+      </div>
+      `
+    }
+    // console.time("digui");
+    // document.write(digui(data))
+    // console.timeEnd("digui");
+
+    function toTree1(node, tree = '', level = 0, indent = 2) {
+      const title =
+        new Array(level).join('｜&nbsp;&nbsp;&nbsp;' + ' '.repeat(indent)) +
+        (level > 0 ? '├─' : '') +
+        node.parent;
+      tree += tree ? '<br />' : '';
+      tree += title;
+      if (Array.isArray(node.children)) {
+        node.children.forEach(child => {
+          tree = toTree(child, tree, level + 1, indent);
+        });
+      }
+      return tree;
+    }
+    // console.time("toTree1");
+    // document.write(toTree1(data))
+    // console.timeEnd("toTree1");
+
+    // 我的
+      function toTree(obj, sum = '', index = 0) {
+        var t = '｜&nbsp;&nbsp;&nbsp;'.repeat(index < 1 ? 0 : index - 1) + (index === 0 ? '' : '├─')
+        sum += t + obj.parent + '<br/>'
+        obj.children.forEach(el => {
+          sum = toTree(el, sum, index + 1)
+          // sum = toTree(el, sum, ++index)
+          // index--
+        })
+        return sum
+      }
+      console.time("toTree");
+      document.write(toTree(data))
+      console.timeEnd("toTree");
+  </script>
+</body>
+
+</html>

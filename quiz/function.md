@@ -11,6 +11,7 @@ description: 函数相关练习，递归、闭包、作用域链...，题目持�
      return arguments.callee;
    })(1)(2)(3)
    ```
+   
 2. 下列代码的运行结果？
    ```js
    var i = 1;
@@ -22,6 +23,7 @@ description: 函数相关练习，递归、闭包、作用域链...，题目持�
    A();
    alert(i);
    ```
+   
 3. 请使用一条语句对数组求和,要求使用递归。
    ```js
    var arr = [1,2,3,4,5];
@@ -30,29 +32,15 @@ description: 函数相关练习，递归、闭包、作用域链...，题目持�
    }
    sum(arr); 
    ```
-4. 用递归函数计算 n! 。<br/>
-5. 什么是闭包？闭包的实现方式是,请举一个例子？<br/>
-6. 这段代码输出什么？如果想让这段代码输出0123456789，应该怎么修改？
+   
+4. 这段代码输出什么？如果想让这段代码输出0123456789，应该怎么修改？
    ```js
    for (var i = 0; i < 10; ++i) {
      setTimeout(function () {console.log(i)}, 0);
    }
    ```
-7. 使用递归输出以下结构（目录树）。
-   ```js
-   Desktop
-   ├─.DS_Store
-   ├─.localized
-   ├─dir2
-   |  ├─file3
-   |  ├─file4
-   |  |  ├─file5
-   ├─dir1
-   |  ├─file2
-   |  ├─file1
-   ```
-8. 猴子吃桃。第一天悟空吃掉桃子总数一半多一个，第二天又将剩下的桃子吃掉一半多一个，以后每天吃掉前一天剩下的一半多一个，到第n天准备吃的时候只剩下一个桃子。请算一下，桃子一共有多少个？ <br/>
-9. 下列代码的运行结果？
+   
+5. 下列代码的运行结果？
    ```js
    var n = 3;
    function A() {
@@ -70,41 +58,85 @@ description: 函数相关练习，递归、闭包、作用域链...，题目持�
    B();
    D(); 		//结果是什么，为什么？
    ```
+   
+6. 下列代码的运行结果？
+   ```js
+   var a =5;
+   function F(){
+     a = 10;
+     return;
+     function a(){}
+   }
+   F();
+   alert(a);
+   ```
 
-10. 下列代码的运行结果？
-    ```js
-    var a =5;
-    function F(){
-      a = 10;
-      return;
-      function a(){}
-    }
-    F();
-    alert(a);
-    ```
+7. 下列代码的结果是什么？为什么？
+   ```js
+   var a = 5;
+   function a(b) {
+     alert(b);
+   }
+   a(6);
+   alert(a); 
+   ```
 
-11. 下列代码的结果是什么？为什么？
+8. 下列代码的输出结果？
+   ```js
+   function A(){
+     var rs = new Array();
+     for(var i=0;i<3;i++){
+       rs[i] =  function(){ return i;}  ;
+     }
+     return rs;
+   }
+   var rst = A()
+   document.write(rst[0]());
+   document.write(rst[1]());
+   document.write(rst[2]());
+   document.write(rst[3]());	
+   ```
+   
+9. 用递归函数计算 n! 。<br/>
+
+10. 用递归函数求幂。<br/>
+
+11. 用递归求1-100的和。<br/>
+
+12. 求 1,3,5,7,9,...第n项的结果和前n项和,序号从0开始。<br/>
+
+13. 求 2,4,6,8,10... 第n项与前n项之和。<br/>
+
+14. Fibonacci数列(斐波那契数列) 1, 1, 2, 3, 5, 8, 13, 21, 34, 55... 第n项。<br/>
+
+15. 数列 1,1,2,4,7,11,16...求第 n 项,求前n项和。<br/>
+
+16. 什么是闭包？闭包的实现方式是,请举一个例子？<br/>
+
+17. 使用递归输出以下结构（目录树）。
     ```js
-    var a = 5;
-    function a(b) {
-      alert(b);
-    }
-    a(6);
-    alert(a); 
+    Desktop
+    ├─.DS_Store
+    ├─.localized
+    ├─dir1
+    |  ├─file3
+    |  |  ├─file6
+    ├─dir2
+    |  ├─file4
+    |  ├─file5
     ```
-12. 下列代码的输出结果？
-    ```js
-    function A(){
-      var rs = new Array();
-      for(var i=0;i<3;i++){
-        rs[i] =  function(){ return i;}  ;
-      }
-      return rs;
-    }
-    var rst = A()
-    document.write(rst[0]());
-    document.write(rst[1]());
-    document.write(rst[2]());
-    document.write(rst[3]());	
-    ```
+    
+18. 猴子吃桃。第一天悟空吃掉桃子总数一半多一个，第二天又将剩下的桃子吃掉一半多一个，以后每天吃掉前一天剩下的一半多一个，到第n天准备吃的时候只剩下一个桃子。请算一下，桃子一共有多少个？ <br/>
+
+19. 用递归函数实现深拷贝。<br/>
+
+20. 使用递归实现 getElementsByClassName。<br/>
+
+21. 经典楼梯问题：一共10级楼梯，每次可以走一步或两步，求一共多少种走法？<br/>
+
+22. 细胞分裂问题：1个细胞，一个小时分裂一次，生命周期是3小时，求n小时后容器内，有多少细胞。<br/>
+
+23. 实现常见的排序算法。<br/>
+
+
 
