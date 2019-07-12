@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>用递归函数求幂。</pre>
+  <script>
+    // m的n次方
+    function power (m, n) {
+      if (n === 0) {
+        return 1
+      } else {
+        return m * power(m, (n-1))
+      }
+    }
+    // console.time("power");
+    // document.write(power(1, 0))
+    // console.timeEnd("power");
+    
+
+    // 尾递归
+    function tailPower (m, n, res=1) {
+      if (n===0) {
+        return res
+      } else {
+        return tailPower(m, n-1, res*m)
+      }
+    }
+    document.write('<br />')
+
+    console.time("tailPower");
+    document.write(tailPower(2, 3))
+    console.timeEnd("tailPower");
+  </script>
+</body>
+
+</html>

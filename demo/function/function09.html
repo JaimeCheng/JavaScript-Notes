@@ -11,14 +11,21 @@
 <body>
   <pre>用递归函数计算 n!。</pre>
   <script>
-   function sum (n) {
-     if (n <= 1) {
-       return 1
-     } else {
-       return n*arguments.callee(n-1)
-     }
-   }
-   console.log(sum(0))
+    function sum (n) {
+      if (n <= 1) {
+        return 1
+      } else {
+        return n*arguments.callee(n-1)
+      }
+    }
+    console.log(sum(5))
+    // 尾递归
+    function fac(n, total=1) {
+      if (n <= 1) return total;
+      return fac(n - 1, n * total);
+    }
+  
+    console.log(fac(5))
   </script>
 </body>
 
