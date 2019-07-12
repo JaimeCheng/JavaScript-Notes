@@ -1,4 +1,4 @@
-# 1. JavaScript简介
+# 1. JavaScript 简介
 
 ## JavaScript实现的组成部分
 

@@ -1,4 +1,4 @@
-# 2. 在HTML中使用JavaScript
+# 2. 在 HTML 中使用 JavaScript
 
 ## `<script>`的6个属性   <a id="script"></a>
 
