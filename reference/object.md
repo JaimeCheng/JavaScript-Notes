@@ -8,7 +8,7 @@ var obj1 = {} // 字面量语法时，如果留空其花括号，则可以定义
 obj.name = "Jaime"
 var person = {
     name: "Jaime"
-} // 字面量表示法，字面量不会调用Object()构造函数
+} // 字面量表示法，字面量不会调用Object()构造函数，适合来封装多个可选参数
 ```
 
 ## 默认属性和方法   <a id="properties-methods"></a>

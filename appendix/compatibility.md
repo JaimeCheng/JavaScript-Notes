@@ -17,3 +17,5 @@
 * IE、 Firefox、 Chrome 和 Safari 的所有版本以及 Opera 9.6 都支持 `caller` 属性 ； 
 * 支持 `bind()` 方法的有 IE9+、 Firefox 4+、 Safari 5.1+、 Opera 12+和 Chrome ；
 
+## 日期  <a id="date"></a>
+* 支持 `Data.now()` 方法的浏览器包括 IE9+、Firefox 3+、Safari 3+、Opera 10.5 和 Chrome。在不支持它的浏览器中，使用 `+` 操作符把 `Data` 对象转换成字符串，也可以达到同样的目的。

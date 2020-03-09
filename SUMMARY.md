@@ -38,6 +38,7 @@
   * [Array](reference/array.md)
   * [Object](reference/object.md)
   * [Function](reference/function.md)
+  * [Date](reference/date.md)
 * [专项练习](quiz/README.md)
   * [操作符](quiz/operator.md)
   * [语句](quiz/statement.md)
