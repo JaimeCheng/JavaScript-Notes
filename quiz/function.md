@@ -12,7 +12,7 @@ description: 函数相关练习，递归、闭包、作用域链...，题目持�
    })(1)(2)(3)
    ```
    
-2. 下列代码的运行结果？
+2. 下列两段代码的运行结果？
    ```js
    var i = 1;
    function A(){
@@ -138,5 +138,30 @@ description: 函数相关练习，递归、闭包、作用域链...，题目持�
 
 23. 实现常见的排序算法。<br/>
 
-
+24. 下列代码的运行结果。<br/>
+    ```js
+    i = 1; 
+    alert(i); 
+    var A = function() { 
+      alert(i); 
+      var i = 2; 
+      alert(i); 
+    } 
+    A(); 
+    ```
+25. 下列代码的运行结果。<br/>
+     ```js
+     var i = 1;
+     function A(){
+      i = 2;	
+      function B(){
+         var i = 3;
+         console.log(i);
+       }
+       B();
+       console.log(i);
+     }
+     A();
+     console.log(i);
+     ```
 

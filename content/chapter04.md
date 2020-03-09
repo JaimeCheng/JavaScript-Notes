@@ -116,7 +116,7 @@
 
 * 函数及变量的声明（**`var`** 声明 和 **`function`** 声明的标识符）都将被提升到函数的最顶部；
 
-* 当二者同时存在，函数提升到最顶部；
+* 函数声明和变量声明都会被提升，但是：函数会首先被提升，然后才是变量。即【函数声明提升】优先级高于【变量声明提升】；
 
 * 变量可以先使用再声明，会发生声明提升，赋值不会提升；
 
@@ -156,12 +156,33 @@
   console.log(f2); // undefined  
   function f1() {}
   var f2 = function() {}
+  // 等价于
+  function f1() {}
+  var f2
+  console.log(f1);  
+  console.log(f2);
+  f2 = function() {}
   
-  // 同时提升
+  // 函数提升
   var a = 5;
   function a(b){
     alert(b);
   }
-  a(6); // a is not a function
+  a(6); // a is not a function 函数提升后 var a = 5 把a覆盖掉了
+  // 等价于
+  function a(b){
+    alert(b);
+  }
+  var a;
+  a = 5
+  a(6)
+  
+  // 如果上述修改一下
+  var a;
+  function a(b){
+    alert(b);
+  }
+  a(6);  // alert 出 6
+  // 原因：如果仅仅是重复声明：声明会被忽略，如果声明同时赋值情况就会变化
   ```
 
