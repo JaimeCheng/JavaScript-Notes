@@ -39,6 +39,8 @@
   * [Object](reference/object.md)
   * [Function](reference/function.md)
   * [Date](reference/date.md)
+  * [基本包装类型](reference/primitive-wrapper.md)
+  * [单体内置对象](reference/singleton-built-in-object.md)
 * [专项练习](quiz/README.md)
   * [操作符](quiz/operator.md)
   * [语句](quiz/statement.md)

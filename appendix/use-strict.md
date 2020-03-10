@@ -27,3 +27,5 @@
 * 严格模式下，`argunments.callee` 会导致错误，非严格模式下，ES5还定义了 `arguments.caller` 属性，在严格模式下访问会导致错误，非严格模式下这个属性始终是 `undefined`，定义该属性是为了区分函数的 `caller` 属性和 `arguments.caller`；
 * 严格模式下，不能为 `caller` 属性赋值，否则会导致错误； 
 
+## Global对象 <a id="global"></a>
+* 严格模式下，在外部访问不到 `eval()` 中创建的任何变量或函数，为 `eval` 赋值也会导致错误；
