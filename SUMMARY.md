@@ -39,6 +39,7 @@
   * [Object](reference/object.md)
   * [Function](reference/function.md)
   * [Date](reference/date.md)
+  * [RegExp](reference/regexp.md)
   * [基本包装类型](reference/primitive-wrapper.md)
   * [单体内置对象](reference/singleton-built-in-object.md)
 * [专项练习](quiz/README.md)
