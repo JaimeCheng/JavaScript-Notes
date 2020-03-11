@@ -24,7 +24,7 @@
 ## 检测类型  <a id="determining-type"></a>
 
 * 确定一个值是哪种基本类型可以使用 `typeof` 操作符；
-* 确定一个值是哪种引用类型可以使用 `instanceof` 操作符\(返回bool\)；
+* 确定一个值是哪种引用类型可以使用 `instanceof` 操作符\(返回bool\)，(可以理解为`son instanceof mother`)；
 * 引用类型的值都是 `Object` 的实例。因此，`someReferenceVar instanceof Object`，始终会返回 `true`，如果检测基本类型的值，则始终会返回 `false`，因为基本类型不是对象；
 * `instanceof` 运算符用来测试一个对象在其原型链（详见第 6 章）中是否存在一个构造函数的 `prototype` 属性；
 
