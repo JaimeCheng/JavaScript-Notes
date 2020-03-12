@@ -225,17 +225,16 @@ alert(person1.name); //"Nicholas"——来自原型
   var msg = "Hello world!"; 
   alert(msg.startsWith("Hello")); //true
   ```
-  通过原生对象的原型，不仅可以取得所有默认方法的引用，而且也可以定义新方法。但不推荐在产品化的程序中修改原生对象的原型。如果因某个实现中缺少某个方法，就在原生对象的原型中添加这个方法，那么当在另一个支持该方法的实现中运行代码时，就可能会导致命名冲突。而且，这样做也可能会意外地重写原生方法。
-  
+  通过原生对象的原型，不仅可以取得所有默认方法的引用，而且也可以定义新方法。但不推荐在产品化的程序中修改原生对象的原型。如果因某个实现中缺少某个方法，就在原生对象的原型中添加这个方法，那么当在另一个支持该方法的实现中运行代码时，就可能会导致命名冲突。而且，这样做也可能会意外地重写原生方法。<br />
 
-  
 * **原型对象的问题**
 
   原型模式的最大问题是由其共享的本性所导致的，这种共享对于函数非常合适，对于基本值的属性也说得过去，毕竟通过在实例上添加一个同名属性，可以隐藏原型中的对应属性。然而，对于包含引用类型值(比如数组)的属性来说，问题就比较突出了。
   ```js
   // 接开头代码
   Person.prototype.friends = ['jaime', 'czm']
-  person1.friends.push("Van");
+  // person1.friends = ['Van'] // 放在实例上的属性
+  person1.friends.push("Van"); // 操作原型上的属性
   alert(person1.friends); // "jaime,czm,Van" 
   alert(person2.friends); // "jaime,czm,Van" 
   alert(person1.friends === person2.friends); //true
