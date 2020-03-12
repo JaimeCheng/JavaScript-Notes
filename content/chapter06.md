@@ -92,19 +92,19 @@ alert(person1.sayName == person2.sayName); //true
   Object.getPrototypeOf(person1) 
   // {name: "Nicholas", age: 29, job: "Software Engineer", sayName: ƒ, constructor: ƒ}
   ```
-读取某个对象的某个属性时，搜索首先从对象实例本身开始，如果没有找到，则继续搜索指针指向的原型对象。  
+  读取某个对象的某个属性时，搜索首先从对象实例本身开始，如果没有找到，则继续搜索指针指向的原型对象。  
 如果实例中添的属性与实例原型中的一个属性同名，那我们就在实例中创建该属性，该属性将会屏蔽(不会重写)原型中的那个属性。添加这个属性只会阻止我们访问原型中的那个属性。即使将这个属性设置为 `null`，也只会在实例中设置这个属性，而不会恢复其指向原型的连接，使用 `delete` 操作符则可以完全删除实例属性。
-```js
-// 接开头的例子
-person1.name = "Greg";
-alert(person1.name); //"Greg"——来自实例 (搜索规则)
-alert(person2.name); //"Nicholas"——来自原型
+  ```js
+  // 接开头的例子
+  person1.name = "Greg";
+  alert(person1.name); //"Greg"——来自实例 (搜索规则)
+  alert(person2.name); //"Nicholas"——来自原型
 
-person1.name = null
-alert(person1.name); // null
-delete person1.name;
-alert(person1.name); //"Nicholas"——来自原型
-```
+  person1.name = null
+  alert(person1.name); // null
+  delete person1.name;
+  alert(person1.name); //"Nicholas"——来自原型
+  ```
 
 * **hasOwnProperty()**
   可以检测一个属性是存在于实例中，还是存在于原型中。这个方法(从 `Object` 继承来的)只在给定属性存在于对象实例中时，才会返回 `true`。
@@ -118,6 +118,7 @@ alert(person1.name); //"Nicholas"——来自原型
   alert(person1.name); //"Nicholas"——来自原型    
   alert(person1.hasOwnProperty("name")); //false
   ```
+
 * **原型 in 操作符**
   有两种方式使用 `in` 操作符:单独使用和在 `for-in` 循环中使用。`in` 操作符会在通过对象能够访问给定属性时返回 `true`，无论该属性存在于实例中还是原型中。
   ```js
