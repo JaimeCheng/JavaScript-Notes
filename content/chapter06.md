@@ -105,6 +105,7 @@ alert(person1.name); // null
 delete person1.name;
 alert(person1.name); //"Nicholas"——来自原型
 ```
+
 * **hasOwnProperty()**
   可以检测一个属性是存在于实例中，还是存在于原型中。这个方法(从 `Object` 继承来的)只在给定属性存在于对象实例中时，才会返回 `true`。
   ```js
