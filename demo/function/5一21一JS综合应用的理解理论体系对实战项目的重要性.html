@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>JS进阶对数学算法与基础知识的理解-动力学院</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+* {
+	font-family:"microsoft yahei";
+}
+.cont {
+	margin-left:50px;
+}
+#scroll {
+	width:500px;
+	height:50px;
+	border:1px solid #800000;
+	position:relative
+}
+#scroller {
+	width:50px;
+	height:50px;
+	background-color:#006600;
+	position:absolute
+}
+#oper {
+	margin-left:50px;
+	margin-top:10px;
+}
+.next {
+	margin-top:50px;
+	width:500px;
+	height:200px;
+	border:1px solid #800000;
+	position:relative
+}
+#chart {
+	position:absolute;
+	height:200px;
+}
+#line {
+	position:absolute;
+	left:0;
+	top:0;
+	height:200px;
+	width:2px;
+	background-color:#006600;
+	display:none;
+}
+h1 {
+	border:1px #0C6 solid;
+	font-size:20px;
+	padding:10px;
+	width:800px;
+}
+/*坐标系的css样式*/
+.axis path, .axis line {
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+/*坐标系的css样式结束*/
+</style>
+</head>
+<body>
+<h1>js图片特效常用算法-请将这个页面加个坐标系直接晋级副排长，并在每行代码后附上你对每句js代码的理解说明。 </h1>
+<div class="cont">
+  <div id="scroll">
+    <div id="scroller"></div>
+  </div>
+  <div class="next">
+    <div id="chart"></div>
+    <div id="line"></div>
+  </div>
+</div>
+<div id="oper"> <br>
+  Tween类型
+  <p>
+    <label>
+      <input type="radio" name="rTween" value="Linear" checked/>
+      Linear</label>
+    <label>
+      <input type="radio" name="rTween" value="Quad" />
+      Quad</label>
+    <label>
+      <input type="radio" name="rTween" value="Cubic" />
+      Cubic</label>
+    <label>
+      <input type="radio" name="rTween" value="Quart" />
+      Quart</label>
+    <label>
+      <input type="radio" name="rTween" value="Quint" />
+      Quint</label>
+    <br/>
+    <label>
+      <input type="radio" name="rTween" value="Sine" />
+      Sine</label>
+    <label>
+      <input type="radio" name="rTween" value="Expo" />
+      Expo</label>
+    <label>
+      <input type="radio" name="rTween" value="Circ" />
+      Circ</label>
+    <label>
+      <input type="radio" name="rTween" value="Elastic" />
+      Elastic</label>
+    <label>
+      <input type="radio" name="rTween" value="Back" />
+      Back</label>
+    <label>
+      <input type="radio" name="rTween" value="Bounce" />
+      Bounce</label>
+  </p>
+  Ease类型
+  <label>
+    <input type="radio" name="rEase" value="easeIn" checked/>
+    easeIn</label>
+  <label>
+    <input type="radio" name="rEase" value="easeOut" />
+    easeOut</label>
+  <label>
+    <input type="radio" name="rEase" value="easeInOut" />
+    easeInOut</label>
+  <br>
+  <input type="button" value="运行看效果" style="width:120px;height:28px;" id="run" />
+</div>
+<!--缓动动画js代码--> 
+<script>
+/*
+Tween类,想用方法中的数学公式用于画出缓动曲线，和缓动动画的运动；
+t:(time)缓动动画的当前时间，不停变换达到设定时间停止或重来;
+b：(begin)缓动对象的初始状态;
+c：（change)动画运行距离;
+d: (duration)缓动持续多长时间结束
+*/
+var Tween = {
+	//线性缓动
+ 	
+	Linear: function(t,b,c,d){ return c*t/d + b; },
+	//二次方的缓动
+	Quad: {
+		//速度从小到大
+		easeIn: function(t,b,c,d){
+			return c*(t/=d)*t + b;
+		},
+		//速度从大到小
+		easeOut: function(t,b,c,d){
+			return -c *(t/=d)*(t-2) + b;
+		},
+		//开始时速度从小到大，结束时速度从大到小
+		easeInOut: function(t,b,c,d){
+			if ((t/=d/2) < 1) return c/2*t*t + b;
+			return -c/2 * ((--t)*(t-2) - 1) + b;
+		}
+	},
+	//三次方的缓动
+	Cubic: {
+		easeIn: function(t,b,c,d){
+			return c*(t/=d)*t*t + b;
+		},
+		easeOut: function(t,b,c,d){
+			return c*((t=t/d-1)*t*t + 1) + b;
+		},
+		easeInOut: function(t,b,c,d){
+			if ((t/=d/2) < 1) return c/2*t*t*t + b;
+			return c/2*((t-=2)*t*t + 2) + b;
+		}
+	},
+	//四次方的缓动
+	Quart: {
+		easeIn: function(t,b,c,d){
+			return c*(t/=d)*t*t*t + b;
+		},
+		easeOut: function(t,b,c,d){
+			return -c * ((t=t/d-1)*t*t*t - 1) + b;
+		},
+		easeInOut: function(t,b,c,d){
+			if ((t/=d/2) < 1) return c/2*t*t*t*t + b;
+			return -c/2 * ((t-=2)*t*t*t - 2) + b;
+		}
+	},
+	//五次方的缓动
+	Quint: {
+		easeIn: function(t,b,c,d){
+			return c*(t/=d)*t*t*t*t + b;
+		},
+		easeOut: function(t,b,c,d){
+			return c*((t=t/d-1)*t*t*t*t + 1) + b;
+		},
+		easeInOut: function(t,b,c,d){
+			if ((t/=d/2) < 1) return c/2*t*t*t*t*t + b;
+			return c/2*((t-=2)*t*t*t*t + 2) + b;
+		}
+	},
+	//正弦曲线的缓动
+	Sine: {
+		easeIn: function(t,b,c,d){
+			return -c * Math.cos(t/d * (Math.PI/2)) + c + b;
+		},
+		easeOut: function(t,b,c,d){
+			return c * Math.sin(t/d * (Math.PI/2)) + b;
+		},
+		easeInOut: function(t,b,c,d){
+			return -c/2 * (Math.cos(Math.PI*t/d) - 1) + b;
+		}
+	},
+	//指数曲线的缓动
+	Expo: {
+		easeIn: function(t,b,c,d){
+			return (t==0) ? b : c * Math.pow(2, 10 * (t/d - 1)) + b;
+		},
+		easeOut: function(t,b,c,d){
+			return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
+		},
+		easeInOut: function(t,b,c,d){
+			if (t==0) return b;
+			if (t==d) return b+c;
+			if ((t/=d/2) < 1) return c/2 * Math.pow(2, 10 * (t - 1)) + b;
+			return c/2 * (-Math.pow(2, -10 * --t) + 2) + b;
+		}
+	},
+	//圆形曲线的缓动
+	Circ: {
+		easeIn: function(t,b,c,d){
+			return -c * (Math.sqrt(1 - (t/=d)*t) - 1) + b;
+		},
+		easeOut: function(t,b,c,d){
+			return c * Math.sqrt(1 - (t=t/d-1)*t) + b;
+		},
+		easeInOut: function(t,b,c,d){
+			if ((t/=d/2) < 1) return -c/2 * (Math.sqrt(1 - t*t) - 1) + b;
+			return c/2 * (Math.sqrt(1 - (t-=2)*t) + 1) + b;
+		}
+	},
+	//指数衰减的正弦曲线缓动
+	Elastic: {
+		easeIn: function(t,b,c,d,a,p){
+			if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
+			if (!a || a < Math.abs(c)) { a=c; var s=p/4; }
+			else var s = p/(2*Math.PI) * Math.asin (c/a);
+			return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+		},
+		easeOut: function(t,b,c,d,a,p){
+			if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
+			if (!a || a < Math.abs(c)) { a=c; var s=p/4; }
+			else var s = p/(2*Math.PI) * Math.asin (c/a);
+			return (a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b);
+		},
+		easeInOut: function(t,b,c,d,a,p){
+			if (t==0) return b;  if ((t/=d/2)==2) return b+c;  if (!p) p=d*(.3*1.5);
+			if (!a || a < Math.abs(c)) { a=c; var s=p/4; }
+			else var s = p/(2*Math.PI) * Math.asin (c/a);
+			if (t < 1) return -.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+			return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )*.5 + c + b;
+		}
+	},
+	//超过范围的三次方缓动
+	Back: {
+		easeIn: function(t,b,c,d,s){
+			if (s == undefined) s = 1.70158;
+			return c*(t/=d)*t*((s+1)*t - s) + b;
+		},
+		easeOut: function(t,b,c,d,s){
+			if (s == undefined) s = 1.70158;
+			return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+		},
+		easeInOut: function(t,b,c,d,s){
+			if (s == undefined) s = 1.70158; 
+			if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
+			return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
+		}
+	},
+	//指数衰减的反弹缓动
+	Bounce: {
+		easeIn: function(t,b,c,d){
+			return c - Tween.Bounce.easeOut(d-t, 0, c, d) + b;
+		},
+		easeOut: function(t,b,c,d){
+			if ((t/=d) < (1/2.75)) {
+				return c*(7.5625*t*t) + b;
+			} else if (t < (2/2.75)) {
+				return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
+			} else if (t < (2.5/2.75)) {
+				return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
+			} else {
+				return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
+			}
+		},
+		easeInOut: function(t,b,c,d){
+			if (t < d/2) return Tween.Bounce.easeIn(t*2, 0, c, d) * .5 + b;
+			else return Tween.Bounce.easeOut(t*2-d, 0, c, d) * .5 + c*.5 + b;
+		}
+	}
+};
+
+function T$(i) { return document.getElementById(i); }//把传进方法的标签转换成相应的js对象，以id号传
+function T$$(i) { return document.getElementsByName(i); }//把传进方法的标签转换成相应的js对象数组，以name名传
+//循环调用传入的函数，用于画出缓懂曲线
+function Each(arr, fn) {
+	for (var i = 0, len = arr.length; i < len; i++) {
+		fn(arr[i], i, arr);
+	}
+}
+
+//主要类，通过调用其中的某些方法实现相应的功能
+Tween.demo = function() {
+	var change = 500, duration =100, timer = null;//初始化缓动的change动画的长度和动画的持续时间
+	var rTween = 'Linear', rEase = 'easeIn';//初始化默认选择的缓动曲线是线性的递增的
+	//把缓动矩形、缓动竖线、缓动曲线、曲线类型、曲线的增减性转换称js对象
+	var ss = T$('scroller'), sl = T$('line'), sc = T$('chart'), rTweens = T$$('rTween'), rEases = T$$('rEase');
+	return {
+		//通过调用他来画出缓动的竖线
+		init: function() {
+			this.setMethod();
+			this.drawChart();
+			  this.events();
+		},
+		//事件方法，被其他方法调用实现：根据rTweens和rEases的选泽来画出缓动曲线
+		events: function() {
+			var self = this;
+			//依照rTweens,画出缓动曲线
+			Each(rTweens, function(item) { 
+				item.onclick = function() {
+					rTween = this.value;
+					self.setMethod();
+					self.drawChart();
+				}
+			});
+			//依照rEases,画出缓动曲线
+			Each(rEases, function(item) {
+				item.onclick = function() {
+					rEase = this.value;
+					self.setMethod();
+					self.drawChart();
+				}
+			});
+			//事件绑定，当点击按钮是运动矩形框和竖线，画出缓动
+			T$('run').onclick = function() {
+				self.scroller();
+				self.drawChart();
+			}
+		},
+		//fx存放选择的缓动曲线类型
+		setMethod: function() {
+			fx = rTween == 'Linear' ? Tween[rTween] : Tween[rTween][rEase];
+		},
+		
+		scroller: function() {
+			clearTimeout(timer);
+			var time = 0, begin = 0;
+			sl.style.display = 'block';//显示缓动竖线
+			function run() {
+				ss.style.left = Math.ceil(fx(time, begin, change - 50, duration)) + 'px';//移动小矩形
+				sl.style.left = Math.ceil(Tween.Linear(time, begin, change, duration)) + 'px';//移动竖线
+				//移动的时间递增，超过动画时间隐藏竖线
+				if (time < duration) { 
+					time++; 
+					timer = setTimeout(run, 10);	
+				} else {
+					time = duration;
+					sl.style.display = 'none';
+					clearTimeout(timer);
+				}
+			}
+			//调用函数，响应按钮
+			run();
+		},
+		//被其他函数调用，画出缓动曲线
+		drawChart: function() {
+			var arr = [];
+			for (var i = 0; i <= change; i++) {
+				//为对象添加一个存放缓动曲线的div
+				arr.push('<div style="width:2px;height:2px;font-size:0;background-color:#006600;position:absolute;left:'+(i - 1)+'px;top:'+(Math.ceil(fx(i, 200, -200, change)))+'px"><\/div>');
+			}
+			//内容合并
+			sc.innerHTML = arr.join('');
+		}
+	}
+}();
+//调用函数，在页面中产生响应
+Tween.demo.init();
+</script> 
+<!--缓动动画js代码结束--> 
+<!--坐标系js代码--> 
+<!--引入外部文件，制作D3坐标轴-->
+<!--script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> 
+<script>
+		
+		var width = 500;//svg 图的宽和高
+		var height = 200;	
+		var dataset = [];
+		var num = 10;  //数组的数量
+		
+		for(var i = 0; i < num ; i++){
+			var tempnum = Math.floor( Math.random() * 500 );   // 返回 0~500 整数
+			dataset.push(tempnum);
+		}
+		//设置svg 图的宽和高
+		var svg = d3.select("body").append("svg")
+								.attr("width",width)
+								.attr("height",height)
+								
+		//x轴坐标中的长度和显示刻度	
+		var xAxisScale = d3.scale.linear()
+						.domain([0,500])
+						.range([0,500]);
+		//y轴坐标的长度和显示数字比例				
+		var yAxisScale = d3.scale.linear()
+						.domain([0,200])
+						.range([200,0]);
+		//x轴定义刻度的位置				
+		var xAxis = d3.svg.axis()
+						.scale(xAxisScale)
+						.orient("bottom");
+		//y轴定义刻度的位置	
+		var yAxis = d3.svg.axis()
+						.scale(yAxisScale)
+						.orient("left");
+	
+	//一下两个方法是确定横纵坐标的位置和引入css样式
+		svg.append("g")
+			.attr("class","axis")
+			.attr("transform","translate(51,-175)")
+			.call(xAxis);
+			
+		svg.append("g")
+			.attr("class","axis")
+			.attr("transform","translate(50,-376)")
+			.call(yAxis);   
+        </script> 
+<!--坐标系js代码结束-->
+</body>
+</html>

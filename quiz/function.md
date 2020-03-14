@@ -150,7 +150,7 @@ description: 函数相关练习，递归、闭包、作用域链...，题目持�
     A(); 
     ```
 25. 下列代码的运行结果。
-     ```js
+    ```js
      var i = 1;
      function A(){
       i = 2;	
@@ -163,5 +163,51 @@ description: 函数相关练习，递归、闭包、作用域链...，题目持�
      }
      A();
      console.log(i);
-     ```
-
+    ```
+26. 下列代码的运行结果。
+    ```js
+    var b = 2008;
+    function fnB(){
+      alert(this.b);
+      +function(){alert(this.b);}();
+      function fnB1(){alert(this.b);}
+      fnB1();
+    }
+    var oB = {};
+    oB.b = 2011;
+    oB.m = fnB;
+    oB.m();
+    // 函数中的子函数中的this默认指向window,在js中this没有传递性
+    ```
+27. 下列代码的输出结果
+    ```js
+    var i = 2014;
+    function fnA(fn){
+      fn();
+    }
+    var o = {
+      i:2008,
+      fnB:function(){
+          alert(this.i);
+        },
+      fnC:function(){
+        this.fnB();		
+        fnA(this.fnB);
+      }		
+    }
+    o.fnC();
+    // 作用域
+    ```
+28. 下列代码的输出结果
+    ```js
+    var a = "全局的a";
+    function obj() { 
+      this.fn = function() { 
+        alert(this.a); 
+        setTimeout(this.fn, 1000);	 
+      } 
+    } 
+    var o = new obj(); 
+    o.a = "局部的a"
+    o.fn(); 
+    ```
