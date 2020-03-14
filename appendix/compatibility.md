@@ -42,5 +42,6 @@
 
 * `Object.keys()` 和 `Object.getOwnPropertyNames()` 方法。支持这两个方法的浏览器有 IE9+、Firefox 4+、Safari 5+、Opera 12+和 Chrome；
 
+* `Object.create()` 支持该方法的浏览器有 IE9+、Firefox 4+、Safari 5+、Opera 12+和 Chrome；
   
 
