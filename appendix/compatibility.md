@@ -45,3 +45,6 @@
 * `Object.create()` 支持该方法的浏览器有 IE9+、Firefox 4+、Safari 5+、Opera 12+和 Chrome；
   
 
+## window <a id="window"></a>
+
+* IE9+、Firefox、Safari、Opera 和 Chrome 均为此提供了4个属性： `innerWidth` 、 `innerHeight` 、 `outerWidth` 和 `outerHeight` 。

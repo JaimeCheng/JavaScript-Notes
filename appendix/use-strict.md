@@ -26,6 +26,7 @@
   ```
 * 严格模式下，`argunments.callee` 会导致错误，非严格模式下，ES5还定义了 `arguments.caller` 属性，在严格模式下访问会导致错误，非严格模式下这个属性始终是 `undefined`，定义该属性是为了区分函数的 `caller` 属性和 `arguments.caller`；
 * 严格模式下，不能为 `caller` 属性赋值，否则会导致错误； 
+* `setTimeout` 都是在全局作用域中执行的，因此函数中 `this` 的值在非严格模式下指向 `window` 对象，在严格模式下是 `undefined` ；
 
 
 ## 对象  <a id="object"></a>
