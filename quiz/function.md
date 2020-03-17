@@ -179,7 +179,7 @@ description: 函数相关练习，递归、闭包、作用域链...，题目持�
     oB.m();
     // 函数中的子函数中的this默认指向window,在js中this没有传递性
     ```
-27. 下列代码的输出结果
+27. 下列代码的输出结果。
     ```js
     var i = 2014;
     function fnA(fn){
@@ -198,7 +198,7 @@ description: 函数相关练习，递归、闭包、作用域链...，题目持�
     o.fnC();
     // 作用域
     ```
-28. 下列代码的输出结果
+28. 下列代码的输出结果。
     ```js
     var a = "全局的a";
     function obj() { 
@@ -210,4 +210,62 @@ description: 函数相关练习，递归、闭包、作用域链...，题目持�
     var o = new obj(); 
     o.a = "局部的a"
     o.fn(); 
+    ```
+29. 下列代码输出结果。
+    ```js
+    var i=2000;
+    var oA = {
+      i:2008,
+      fnA:function(){	alert(this.i);	}
+    }
+    var oB = {	i:2010	}
+    oA.fnA.call(oB);  	//输出？为什么？
+    oA.fnA.call();  	//输出？为什么？
+    oA.fnA();  		//输出？为什么？
+    ```
+30. 下列代码输出结果。
+    ```js
+    function A(a,b){	
+      this.sum = a+b;	
+    }
+    function B(){	
+      A.call(this,[2,3,4]);	
+    }
+    var b = new B();
+    alert(b.sum);
+    ```
+31. 下列代码输出结果。
+    ```js
+    function A(){
+      this.course = "PHP高级工程师班";
+      this.school = "动力学院"	
+    }
+    function B(){	
+      A.apply(this);	
+    }
+    var c = new B();
+    alert(c.school);
+    alert(c.course);
+    ```
+32. 下列代码输出结果。
+    ```js
+    function A(a,b){ 
+      this.sum = a+b; 
+    }
+    function B(){ 
+      A.apply(this,[2,3,4]); 
+    }
+    var b = new B();
+    alert(b.sum);
+    ```
+33. 下列代码输出结果。
+    ```js
+    function A(arg){	
+      this.sum = arg[0]+arg[1];	
+    }
+    function B(){	
+      A.apply(this,[2,3,4]);	
+    }
+    var b = new B();
+    alert(b.sum);
     ```

@@ -38,6 +38,52 @@
     // var res = Object.values(old).map(({ name: label, age: value }) => ({ label, value }))
     var res = Object.values(old).map(item => ({ label: item.name, value: item.age }))
     console.log(res)
+
+    /*
+  知识点八：复制继承
+  解决如何让一个对象继承另外一个独立对象问题。
+  */
+
+      var P = {
+        name: "张三",
+        like: ["打球", "唱歌"],
+        company: {
+          money: "100亿",
+          right: "董事长"
+        }
+      }
+
+      var p1 = {
+        name: "李四"
+      }
+
+      deepCopy(P, p1);
+      document.writeln(p1.like);
+      /* */
+      function deepCopy(p, c) {
+
+        var c = c || {};
+
+        for (var i in p) {
+
+          if (typeof p[i] === 'object') {
+
+            c[i] = (p[i].constructor === Array) ? [] : {};
+
+            deepCopy(p[i], c[i]);
+
+          } else {
+
+            c[i] = p[i];
+
+          }
+        }
+
+        return c;
+      }
+/*
+      作业题目：让p1继承P中所有属性，name属性除外
+      */
   </script>
 </body>
 

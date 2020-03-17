@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    .banner-box { width: 600px; margin: 200px auto; }
+    .myslider { width: 100%; overflow: hidden; position: relative; }
+    .myslider-imgs { width: 4200px; position: relative; }
+    .myslider-imgs-item { height: auto; display: block; float: left; }
+    .myslider-spots { width: 100%; position: absolute; bottom: 0; left: 0; text-align: center; padding-bottom: 0.5rem; }
+    .myslider-spots-item { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: #ccc; display: inline-block; margin: 0.2rem; opacity: 0.6; }
+    .myslider-spots-item:hover { background: #ff6700; cursor: pointer; }
+    .myslider-spots-item-active { background: #ff6700; }
+    .myslider-btn { width: 3rem; height: 6rem; background: transparent; opacity: .6; font-size: 2rem; font-weight: bold; color: #fff; line-height: 6rem; text-align: center; position: absolute; top: 50%; margin-top: -3rem; }
+    .myslider-btn:hover { background: #000; cursor: pointer; }
+    .myslider-btn-prev { left: -1px; }
+    .myslider-btn-next { right: -1px; }
+  </style>
+</head>
+<body>
+  <div class="banner-box">
+    <div class="myslider">
+      <div class="myslider-imgs">
+        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/df4322" alt="">
+        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/aaf322" alt="">
+        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/bf3322" alt="">
+        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/003322" alt="">
+        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/bf2222" alt="">
+      </div>
+      <div class="myslider-spots">
+      </div>
+      <div class="myslider-btn myslider-btn-prev">&lt;</div>
+      <div class="myslider-btn myslider-btn-next">&gt;</div>
+    </div>
+  </div>
+
+  <script>
+    const mysliderBox = document.querySelector('.myslider');
+    const mysliderImgs = document.querySelectorAll('.myslider-imgs-item');
+    const mysliderSpotsBox = document.querySelector('.myslider-spots')
+    const containerWidth = window.getComputedStyle(mysliderBox).width;
+
+    for (var i = 0; i < mysliderImgs.length; i++) {
+      mysliderImgs[i].style.width = containerWidth;
+      var mysliderSpot = document.createElement('i')
+      mysliderSpot.classList.add('myslider-spots-item')
+      if (i == 0) {
+        mysliderSpot.classList.add('myslider-spots-item-active')
+      }
+      mysliderSpotsBox.appendChild(mysliderSpot)
+    }
+    
+  </script>
+</body>
+</html>

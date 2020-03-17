@@ -30,6 +30,7 @@ function Person(name, age, job){
     alert(this.name);
   }; 
 }
+// 创建Person的实例 必须用 new 操作符
 var person1 = new Person("Nicholas", 29, "Software Engineer"); 
 var person2 = new Person("Greg", 27, "Doctor");
 ```
@@ -43,6 +44,23 @@ alert(person1 instanceof Object);  //true
 alert(person1 instanceof Person);  //true
 ```
 这种方式定义的构造函数是定义在 `Global` 对象(在浏览器中是 `window` 对象)中。
+
+* **对new的理解**
+  以上调用构造函数实际上会经历一下4个步骤：
+  ```js
+  function A(){
+    var o = {};     				//第一步，创建一个新对象	
+    o.__proto__ = A.prototype;    /*这个是自动拥有的*/
+    o.money = "99万";			/*第二步：将构造函数的作用域赋给新对象(this指向o)*/
+    A.prototype={
+        age:19              /*第三步：执行构造函数中的代码(为新对象添加属性)*/
+      };
+      return o;		        /*第四步：返回一个新对象*/
+  } 
+  var a= A();
+  var b = A();
+  document.writeln(b.age);
+  ```
 
 * **将构造函数当作函数**
   ```js
