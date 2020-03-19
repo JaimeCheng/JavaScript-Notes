@@ -9,7 +9,7 @@
     * { margin: 0; padding: 0; }
     .banner-box { width: 600px; margin: 200px auto; }
     .myslider { width: 100%; overflow: hidden; position: relative; }
-    .myslider-imgs { width: 4200px; position: relative; }
+    .myslider-imgs { position: relative; overflow: hidden; left: 0; }
     .myslider-imgs-item { height: auto; display: block; float: left; }
     .myslider-spots { width: 100%; position: absolute; bottom: 0; left: 0; text-align: center; padding-bottom: 0.5rem; }
     .myslider-spots-item { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: #ccc; display: inline-block; margin: 0.2rem; opacity: 0.6; }
@@ -25,14 +25,13 @@
   <div class="banner-box">
     <div class="myslider">
       <div class="myslider-imgs">
-        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/df4322" alt="">
-        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/aaf322" alt="">
-        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/bf3322" alt="">
-        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/003322" alt="">
-        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/bf2222" alt="">
+        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/df4322/&text=1" alt="">
+        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/aaf322/&text=2" alt="">
+        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/bf3322/&text=3" alt="">
+        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/003322/&text=4" alt="">
+        <img class="myslider-imgs-item" src="https://dummyimage.com/700x350/bf2222/&text=5" alt="">
       </div>
-      <div class="myslider-spots">
-      </div>
+      <div class="myslider-spots"></div>
       <div class="myslider-btn myslider-btn-prev">&lt;</div>
       <div class="myslider-btn myslider-btn-next">&gt;</div>
     </div>
@@ -40,9 +39,13 @@
 
   <script>
     const mysliderBox = document.querySelector('.myslider');
+    const mysliderImgsBox = document.querySelector('.myslider-imgs');
+    mysliderImgsBox.innerHTML += mysliderImgsBox.innerHTML;
     const mysliderImgs = document.querySelectorAll('.myslider-imgs-item');
-    const mysliderSpotsBox = document.querySelector('.myslider-spots')
+    const mysliderSpotsBox = document.querySelector('.myslider-spots');
     const containerWidth = window.getComputedStyle(mysliderBox).width;
+
+    mysliderImgsBox.style.width = (parseInt(containerWidth) * mysliderImgs.length * 2) + 'px'
 
     for (var i = 0; i < mysliderImgs.length; i++) {
       mysliderImgs[i].style.width = containerWidth;
@@ -51,8 +54,85 @@
       if (i == 0) {
         mysliderSpot.classList.add('myslider-spots-item-active')
       }
-      mysliderSpotsBox.appendChild(mysliderSpot)
+      if (i < (mysliderImgs.length / 2)) {
+        mysliderSpotsBox.appendChild(mysliderSpot)
+      }
     }
+
+    const prevBtn = document.querySelector('.myslider-btn-prev');
+    const nextBtn = document.querySelector('.myslider-btn-next');
+
+    var clicktag = 0
+    var index = 0
+    prevBtn.addEventListener('click', function () {
+      if (clicktag == 0) {
+        clicktag = 1;
+        if (mysliderImgsBox.offsetLeft == 0) {
+          mysliderImgsBox.style.transition = 'none'
+          mysliderImgsBox.style.left = '-3000px';
+          index = mysliderImgs.length / 2
+        } 
+        index -= 1
+        mysliderImgsBox.style.left = (mysliderImgsBox.offsetLeft + parseInt(containerWidth)) + 'px';
+        mysliderImgsBox.style.transition = 'left .3s'
+        document.querySelectorAll('.myslider-spots-item').forEach(el => { el.classList.remove('myslider-spots-item-active') })
+        document.querySelectorAll('.myslider-spots-item')[index].classList.add('myslider-spots-item-active')
+        setTimeout(function () {
+          clicktag = 0;
+        }, 300);
+      }
+    })
+    nextBtn.addEventListener('click', function () {
+      if (clicktag == 0) {
+        clicktag = 1;
+        if (index == 4) {
+          index = -1
+        }
+        if (mysliderImgsBox.offsetLeft == -3000) {
+          mysliderImgsBox.style.transition = 'none'
+          mysliderImgsBox.style.left = 0;
+          index = 0
+        } 
+        
+        index += 1
+        
+        mysliderImgsBox.style.left = (mysliderImgsBox.offsetLeft - parseInt(containerWidth)) + 'px';
+        mysliderImgsBox.style.transition = 'left .3s'
+        document.querySelectorAll('.myslider-spots-item').forEach(el => { el.classList.remove('myslider-spots-item-active') })
+        document.querySelectorAll('.myslider-spots-item')[index].classList.add('myslider-spots-item-active')
+        setTimeout(function () {
+          clicktag = 0;
+        }, 300);
+      }
+    })
+
+    document.querySelectorAll('.myslider-spots-item').forEach((el, idx) => {
+      el.addEventListener('click', function () {
+        document.querySelectorAll('.myslider-spots-item').forEach(el => { el.classList.remove('myslider-spots-item-active') })
+        document.querySelectorAll('.myslider-spots-item')[idx].classList.add('myslider-spots-item-active')
+        mysliderImgsBox.style.left = -(idx * parseInt(containerWidth)) + 'px';
+        index = idx
+        mysliderImgsBox.style.transition = 'left .3s'
+      })
+    })
+
+    setInterval(function() {
+      if (clicktag == 0) {
+        if (index == 4) {
+          index = -1
+        }
+        if (mysliderImgsBox.offsetLeft == -3000) {
+          mysliderImgsBox.style.transition = 'none'
+          mysliderImgsBox.style.left = 0;
+          index = 0
+        } 
+        index += 1
+        mysliderImgsBox.style.left = (mysliderImgsBox.offsetLeft - parseInt(containerWidth)) + 'px';
+        mysliderImgsBox.style.transition = 'left .3s'
+        document.querySelectorAll('.myslider-spots-item').forEach(el => { el.classList.remove('myslider-spots-item-active') })
+        document.querySelectorAll('.myslider-spots-item')[index].classList.add('myslider-spots-item-active')
+      }
+    }, 2000)
     
   </script>
 </body>
