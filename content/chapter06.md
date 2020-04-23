@@ -487,8 +487,13 @@ anotherPerson.sayHi(); //"hi"
 组合继承最大的问题就是无论什么情况下，都会调用两次超类型构造函数:一次是在创建子类型原型的时候，另一次是在子类型构造函数内部。子类型最终会包含超类型对象的全部实例属性，我们不得不在调用子类型构造函数时重写这些属性。
 寄生组合式继承，即通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。不必为了指定子类型的原型而调用超类型的构造函数，我们所需要的无非就是超类型原型的一个副本而已。本质上，就是使用寄生式继承来继承超类型的原型，然后再将结果指定给子类型的原型。
 ```js
+function object(o) {
+ function F(){}
+ F.prototype = o;
+ return new F()
+}
 function inheritPrototype(subType, superType){ 
-  var prototype = object(superType.prototype);  // 创建对象 object函数同上
+  var prototype = object(superType.prototype);  
   prototype.constructor = subType; // 增强对象
   subType.prototype = prototype; // 指定对象
 }
@@ -510,4 +515,4 @@ SubType.prototype.sayAge = function(){
 ```
 ![](../imgs/6-4.png)
 
-这个例子的高效率体现在它只调用了一次 `SuperType` 构造函数，并且因此避免了在 `SubType. prototype` 上面创建不必要的、多余的(同名被屏蔽的在原型上的)属性。与此同时，原型链还能保持不变;因此，还能够正常使用 `instanceof` 和 `isPrototypeOf()`。集寄生式继承和组合继承的优点与一身，是实现基于类型继承的最有效方式。
+这个例子的高效率体现在它只调用了一次 `SuperType` 构造函数，并且因此避免了在 `SubType.prototype` 上面创建不必要的、多余的(同名被屏蔽的在原型上的)属性。与此同时，原型链还能保持不变;因此，还能够正常使用 `instanceof` 和 `isPrototypeOf()`。集寄生式继承和组合继承的优点与一身，是实现基于类型继承的最有效方式。
